@@ -462,7 +462,7 @@
       color: var(--color-primary);
     }
 
-    /* --- SLIDE 2 & 3: GRID DE 2 COLUMNAS --- */
+    /* --- SLIDE 2: GRID DE 2 COLUMNAS --- */
     .grid-2-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -472,7 +472,17 @@
       min-height: 0;
     }
 
-    /* --- SLIDE 4, 6, 7: GRID DE 4 ELEMENTOS (2x2) --- */
+    /* --- SLIDE 3 & 4: GRID DE 3 COLUMNAS PROPORCIONALES --- */
+    .grid-3-equal {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      height: 100%;
+      flex-grow: 1;
+      min-height: 0;
+    }
+
+    /* --- SLIDE 6 & 7: GRID DE 4 ELEMENTOS (2x2) --- */
     .grid-4-quad {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -999,6 +1009,7 @@
         padding: 4.5rem 1.25rem 2.5rem 1.25rem;
       }
       .grid-2-col,
+      .grid-3-equal,
       .grid-4-quad,
       .grid-3-col {
         grid-template-columns: 1fr !important;
@@ -1061,7 +1072,7 @@
       <span class="dot-circle"></span>
     </a>
     <a href="#slide-3" class="dot-item" data-index="2">
-      <span class="dot-label">03. Oficinas Nivel 1</span>
+      <span class="dot-label">03. Oficinas Planta Baja</span>
       <span class="dot-circle"></span>
     </a>
     <a href="#slide-4" class="dot-item" data-index="3">
@@ -1183,19 +1194,19 @@
     </section>
 
     <!-- ------------------------------------------------------------------------
-         LÁMINA 3: OFICINAS ADMINISTRATIVAS - NIVEL 1
+         LÁMINA 3: OFICINAS ADMINISTRATIVAS - PLANTA BAJA / NIVEL 1
          ------------------------------------------------------------------------ -->
     <section class="slide" id="slide-3" data-index="2">
       <div class="slide-inner">
         <header class="slide-header">
           <span class="slide-badge">LÁMINA 03 // DISTRIBUCIÓN OPERATIVA</span>
-          <h2 class="slide-title">Oficinas Administrativas — Nivel 1</h2>
+          <h2 class="slide-title">Oficinas Administrativas — Planta Baja / Nivel 1</h2>
           <p class="slide-desc">
-            Áreas de atención directa y soporte operativo continuo. Se implementan divisiones transparentes de vidrio templado para mantener permeabilidad visual, aislamiento acústico y un flujo expedito para el personal de planta.
+            Áreas de atención directa, soporte operativo y coordinación de reuniones. Se implementan divisiones transparentes de vidrio templado para mantener permeabilidad visual, aislamiento acústico y un flujo expedito para el personal de planta.
           </p>
         </header>
 
-        <div class="grid-2-col">
+        <div class="grid-3-equal">
           <div class="arch-card" data-full-src="assets/oficinas/Nivel 1 Oficina Planificacion.webp" data-caption="Nivel 1: Oficina de Planificación — Espacio abierto de trabajo técnico con mobiliario ergonómico e iluminación LED directa de alta eficiencia.">
             <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
             <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
@@ -1221,6 +1232,19 @@
               <span class="arch-card-tag">PLANTA BAJA</span>
             </div>
           </div>
+
+          <div class="arch-card" data-full-src="assets/oficinas/Oficina pequeña reuniones.webp" data-caption="Planta Baja: Sala Auxiliar de Reuniones — Espacio ágil para sesiones de trabajo operativas, entrevistas y coordinación de turnos de planta.">
+            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
+            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
+            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
+            <div class="arch-card-media">
+              <img src="assets/oficinas/Oficina pequeña reuniones.webp" alt="Sala Auxiliar de Reuniones Planta Baja" loading="lazy">
+            </div>
+            <div class="arch-card-meta">
+              <span class="arch-card-title">Sala Auxiliar de Reuniones</span>
+              <span class="arch-card-tag">PLANTA BAJA</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1238,33 +1262,29 @@
           </p>
         </header>
 
-        <div class="grid-4-quad">
+        <div class="grid-3-equal">
           <div class="arch-card" data-full-src="assets/oficinas/Nivel 2 Oficina Gerentes.webp" data-caption="Oficina de Gerencia — Despacho ejecutivo principal con área de reunión privada y visual panorámica hacia el patio de planta.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
+            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
+            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
             <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
             <div class="arch-card-media"><img src="assets/oficinas/Nivel 2 Oficina Gerentes.webp" alt="Oficina de Gerentes Nivel 2" loading="lazy"></div>
             <div class="arch-card-meta"><span class="arch-card-title">Oficina de Gerentes</span><span class="arch-card-tag">NIVEL 2</span></div>
           </div>
 
           <div class="arch-card" data-full-src="assets/oficinas/Nivel 2 Oficina Jefes.webp" data-caption="Oficina de Jefaturas — Estación de supervisión operativa y jefatura departamental con conectividad directa.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
+            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
+            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
             <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
             <div class="arch-card-media"><img src="assets/oficinas/Nivel 2 Oficina Jefes.webp" alt="Oficina de Jefes Nivel 2" loading="lazy"></div>
             <div class="arch-card-meta"><span class="arch-card-title">Oficina de Jefes</span><span class="arch-card-tag">NIVEL 2</span></div>
           </div>
 
           <div class="arch-card" data-full-src="assets/oficinas/Nivel 2 Sala de Reuniones.webp" data-caption="Sala Principal de Reuniones — Capacidad para equipos multidisciplinarios con proyección audiovisual y control acústico.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
+            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
+            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
             <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
             <div class="arch-card-media"><img src="assets/oficinas/Nivel 2 Sala de Reuniones.webp" alt="Sala de Reuniones Nivel 2" loading="lazy"></div>
             <div class="arch-card-meta"><span class="arch-card-title">Sala Principal de Reuniones</span><span class="arch-card-tag">NIVEL 2</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Oficina pequeña reuniones.webp" data-caption="Sala Auxiliar / Huddle Room — Espacio ágil para reuniones puntuales de 3 a 4 personas y conferencias privadas.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/oficinas/Oficina pequeña reuniones.webp" alt="Oficina Pequeña de Reuniones" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Sala Auxiliar de Sesiones</span><span class="arch-card-tag">NIVEL 2</span></div>
           </div>
         </div>
       </div>
