@@ -151,14 +151,15 @@
     }
 
     /* ==========================================================================
-       CONTENEDOR PRINCIPAL: SLIDES CON SNAP-SCROLL
+       CONTENEDOR PRINCIPAL: NAVEGACIÓN Y SCROLL FLUIDO
        ========================================================================== */
     .presentation-container {
       height: 100vh;
       height: 100dvh;
       overflow-y: auto;
-      scroll-snap-type: y mandatory;
+      overflow-x: hidden;
       scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
       position: relative;
       z-index: 10;
     }
@@ -166,13 +167,11 @@
     .slide {
       min-height: 100vh;
       min-height: 100dvh;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 4.5rem 2rem 3rem 2rem;
+      padding: 4.5rem 2rem 2.5rem 2rem;
       position: relative;
     }
 
@@ -823,65 +822,7 @@
       box-shadow: 0 0 0 3px rgba(74, 119, 157, 0.25);
     }
 
-    /* Barra inferior flotante con flechas de navegación y status */
-    .nav-bottom-bar {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--color-glass);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: var(--border-technical);
-      padding: 0.4rem 1rem;
-      border-radius: 30px;
-      box-shadow: var(--shadow-hover);
-      z-index: 100;
-    }
 
-    .nav-btn {
-      background: none;
-      border: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-primary);
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .nav-btn:hover {
-      background: rgba(0, 43, 73, 0.08);
-      color: var(--color-secondary);
-    }
-
-    .nav-counter {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--color-primary);
-      letter-spacing: 0.05em;
-      min-width: 60px;
-      text-align: center;
-    }
-
-    .nav-keyboard-hint {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--color-muted);
-      border-left: 1px solid var(--color-border);
-      padding-left: 0.75rem;
-      display: none;
-    }
-    @media (min-width: 992px) {
-      .nav-keyboard-hint { display: inline-block; }
-    }
 
     /* Botón flotante para alternar pantalla completa */
     .fullscreen-toggle {
@@ -1052,13 +993,10 @@
     }
 
     @media (max-width: 768px) {
-      .presentation-container {
-        scroll-snap-type: none; /* Permitir scroll continuo natural en móviles */
-      }
       .slide {
         min-height: auto;
         height: auto;
-        padding: 4.5rem 1rem 4.5rem 1rem;
+        padding: 4.5rem 1.25rem 2.5rem 1.25rem;
       }
       .grid-2-col,
       .grid-4-quad,
@@ -1079,10 +1017,6 @@
       }
       .specs-table th {
         width: 40%;
-      }
-      .nav-bottom-bar {
-        bottom: 0.75rem;
-        padding: 0.3rem 0.75rem;
       }
       .lightbox-prev { left: 0.5rem; width: 40px; height: 40px; }
       .lightbox-next { right: 0.5rem; width: 40px; height: 40px; }
@@ -1160,21 +1094,7 @@
     </a>
   </nav>
 
-  <!-- Controles flotantes inferiores -->
-  <div class="nav-bottom-bar">
-    <button class="nav-btn" id="btn-prev-slide" title="Lámina Anterior (Flecha Arriba / Izquierda)">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"></polyline>
-      </svg>
-    </button>
-    <div class="nav-counter" id="nav-counter">01 / 10</div>
-    <button class="nav-btn" id="btn-next-slide" title="Lámina Siguiente (Flecha Abajo / Derecha)">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
-    </button>
-    <span class="nav-keyboard-hint">Teclas: &uarr; &darr; &bull; Espacio</span>
-  </div>
+
 
   <!-- ==========================================================================
        CONTENEDOR DE LÁMINAS / DIAPOSITIVAS
@@ -1657,10 +1577,7 @@
       const slides = Array.from(document.querySelectorAll('.slide'));
       const totalSlides = slides.length;
       const navDots = Array.from(document.querySelectorAll('.dot-item'));
-      const navCounter = document.getElementById('nav-counter');
       const topbarSheetLabel = document.getElementById('topbar-sheet-label');
-      const btnPrev = document.getElementById('btn-prev-slide');
-      const btnNext = document.getElementById('btn-next-slide');
       const btnRestart = document.getElementById('btn-restart-pres');
       const fullscreenToggle = document.getElementById('fullscreen-toggle');
 
@@ -1671,8 +1588,9 @@
         const formattedCurrent = String(index + 1).padStart(2, '0');
         const formattedTotal = String(totalSlides).padStart(2, '0');
         
-        navCounter.textContent = `${formattedCurrent} / ${formattedTotal}`;
-        topbarSheetLabel.textContent = `LÁMINA ${formattedCurrent} / ${formattedTotal}`;
+        if (topbarSheetLabel) {
+          topbarSheetLabel.textContent = `LÁMINA ${formattedCurrent} / ${formattedTotal}`;
+        }
 
         navDots.forEach((dot, i) => {
           if (i === index) {
@@ -1694,10 +1612,10 @@
         }
       }
 
-      // Intersection Observer para detectar la lámina visible al hacer scroll
+      // Intersection Observer para actualizar indicador según scroll natural del usuario
       const observerOptions = {
         root: container,
-        threshold: 0.55
+        threshold: 0.35
       };
 
       const slideObserver = new IntersectionObserver((entries) => {
@@ -1713,9 +1631,6 @@
 
       slides.forEach(slide => slideObserver.observe(slide));
 
-      // Eventos de botones flotantes
-      btnPrev.addEventListener('click', () => goToSlide(currentSlideIndex - 1));
-      btnNext.addEventListener('click', () => goToSlide(currentSlideIndex + 1));
       if (btnRestart) {
         btnRestart.addEventListener('click', () => goToSlide(0));
       }
@@ -1852,36 +1767,7 @@
         }
       });
 
-      // --- 5. SOPORTE DE GESTOS TÁCTILES (SWIPE EN MÓVILES) ---
-      let touchStartY = 0;
-      let touchEndY = 0;
-      let touchStartX = 0;
-      let touchEndX = 0;
 
-      container.addEventListener('touchstart', (e) => {
-        touchStartY = e.changedTouches[0].screenY;
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      container.addEventListener('touchend', (e) => {
-        touchEndY = e.changedTouches[0].screenY;
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      }, { passive: true });
-
-      function handleSwipe() {
-        const deltaY = touchStartY - touchEndY;
-        const deltaX = touchStartX - touchEndX;
-
-        // Si el swipe vertical es mayor que 50px
-        if (Math.abs(deltaY) > 50 && Math.abs(deltaY) > Math.abs(deltaX)) {
-          if (deltaY > 0) {
-            goToSlide(currentSlideIndex + 1);
-          } else {
-            goToSlide(currentSlideIndex - 1);
-          }
-        }
-      }
 
     })();
   </script>
