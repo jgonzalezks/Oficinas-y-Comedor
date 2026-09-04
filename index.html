@@ -3,36 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficinas Administrativas & Comedor | Corporación JSL - Planta Guatire</title>
-  <meta name="description" content="Presentación arquitectónica corporativa del proyecto de Oficinas Administrativas y Comedor para Corporación JSL en Planta Guatire.">
+  <title>Proyecto Integral de Oficinas Modulares & Comedor Industrial | Modelado BIM & Visualización 3D</title>
+  <meta name="description" content="Case Study: Desarrollo As-Built, Planimetría CAD, Cuantificación MEP y Visualización Tridimensional. Showcase profesional de diseño BIM y arquitectura modular.">
 
-  <!-- Google Fonts: Montserrat (Headings) & Inter (Body & Technical Data) -->
+  <!-- Google Fonts: Montserrat (Headings) & Inter (Body) & JetBrains Mono (Technical Data) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       VARIABLES Y DESIGN SYSTEM ARQUITECTÓNICO
+       1. DESIGN TOKENS & ARQUITECTURA VISUAL (BIM SHOWCASE SYSTEM)
        ========================================================================== */
     :root {
-      --color-primary: #002B49;       /* Azul corporativo profundo */
+      --color-primary: #0A2540;       /* Azul oscuro de precisión técnica */
+      --color-primary-light: #15395B; /* Azul intermedio */
       --color-secondary: #4A779D;     /* Azul acero técnico */
-      --color-accent: #0D5C96;        /* Azul de acento constructivo */
-      --color-dark: #1A2530;          /* Tinta arquitectónica */
+      --color-accent: #3B82F6;        /* Azul acero moderno (#3B82F6) */
+      --color-accent-hover: #2563EB;
+      --color-dark: #1E293B;          /* Texto principal */
       --color-muted: #64748B;         /* Gris técnico de soporte */
-      --color-light-gray: #E8ECEF;    /* Líneas de retícula */
-      --color-border: #D0D7DE;        /* Bordes técnicos */
-      --color-bg-base: #F8F9FA;       /* Blanco técnico arquitectónico */
-      --color-surface: #FFFFFF;       /* Blanco puro papel */
-      --color-glass: rgba(255, 255, 255, 0.88);
+      --color-border: #E2E8F0;        /* Bordes estructurales */
+      --color-border-tech: rgba(10, 37, 64, 0.12);
+      --color-bg-base: #F8F9FA;       /* Gris técnico neutro */
+      --color-surface: #FFFFFF;       /* Blanco puro */
+      --color-surface-alt: #F1F5F9;   /* Superficie secundaria */
+      --color-dwg: #2563EB;           /* Acento CAD DWG */
+      --color-pdf: #DC2626;           /* Acento Documento PDF */
+      
       --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+
+      --shadow-subtle: 0 4px 16px -2px rgba(10, 37, 64, 0.05);
+      --shadow-card: 0 10px 25px -5px rgba(10, 37, 64, 0.08), 0 8px 10px -6px rgba(10, 37, 64, 0.03);
+      --shadow-hover: 0 20px 35px -8px rgba(10, 37, 64, 0.16);
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+
+      --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      --shadow-subtle: 0 4px 20px -2px rgba(0, 43, 73, 0.06);
-      --shadow-hover: 0 16px 32px -8px rgba(0, 43, 73, 0.14);
-      --border-technical: 1px solid rgba(0, 43, 73, 0.12);
     }
 
     * {
@@ -53,697 +65,135 @@
       font-family: var(--font-body);
       color: var(--color-dark);
       background-color: var(--color-bg-base);
-      overflow: hidden; /* Controlado por el slide container */
-      height: 100%;
-      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      line-height: 1.6;
       position: relative;
     }
 
-    /* Retícula arquitectónica de fondo sutil (Grid milimétrico) */
+    /* Retícula arquitectónica milimétrica de fondo tenue */
     .arch-grid-bg {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
       background-image: 
-        linear-gradient(to right, rgba(0, 43, 73, 0.035) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 43, 73, 0.035) 1px, transparent 1px),
-        radial-gradient(circle at 1px 1px, rgba(0, 43, 73, 0.07) 1px, transparent 0);
-      background-size: 40px 40px, 40px 40px, 200px 200px;
-      background-position: 0 0, 0 0, -1px -1px;
+        linear-gradient(to right, rgba(10, 37, 64, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(10, 37, 64, 0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
-
-    /* Coordenadas arquitectónicas sutiles en las 4 esquinas */
-    .arch-corner-mark {
-      position: fixed;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--color-muted);
-      letter-spacing: 0.1em;
-      opacity: 0.6;
-      z-index: 50;
-      pointer-events: none;
-    }
-    .corner-tl { top: 12px; left: 16px; }
-    .corner-tr { top: 12px; right: 16px; }
-    .corner-bl { bottom: 12px; left: 16px; }
-    .corner-br { bottom: 12px; right: 16px; }
 
     /* ==========================================================================
-       HEADER Y METADATOS TÉCNICOS GLOBALES
+       2. HEADER Y BARRA DE NAVEGACIÓN TÉCNICA
        ========================================================================== */
-    .arch-topbar {
+    .top-header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 52px;
-      background: var(--color-glass);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: var(--border-technical);
+      height: 64px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 2rem;
-      z-index: 100;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--color-muted);
+      z-index: 1000;
+      transition: var(--transition-fast);
     }
 
-    .topbar-left {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: inherit;
     }
 
-    .brand-tag {
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      color: #FFF;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: -0.05em;
+      box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
       font-family: var(--font-heading);
       font-weight: 700;
+      font-size: 0.9rem;
       color: var(--color-primary);
-      letter-spacing: 0.05em;
-      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
     }
 
-    .project-tag {
-      border-left: 1px solid var(--color-border);
-      padding-left: 1.25rem;
-      display: none;
-    }
-    @media (min-width: 768px) {
-      .project-tag { display: inline-block; }
-    }
-
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .sheet-indicator {
-      background: rgba(0, 43, 73, 0.05);
-      border: 1px solid rgba(0, 43, 73, 0.12);
-      padding: 0.25rem 0.65rem;
-      border-radius: 4px;
-      font-weight: 600;
-      color: var(--color-primary);
-    }
-
-    /* ==========================================================================
-       CONTENEDOR PRINCIPAL: NAVEGACIÓN Y SCROLL FLUIDO
-       ========================================================================== */
-    .presentation-container {
-      height: 100vh;
-      height: 100dvh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      position: relative;
-      z-index: 10;
-    }
-
-    .slide {
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 4.5rem 2rem 2.5rem 2rem;
-      position: relative;
-    }
-
-    .slide-inner {
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      max-height: calc(100vh - 6.5rem);
-      justify-content: center;
-    }
-
-    /* Cabecera común de cada lámina */
-    .slide-header {
-      margin-bottom: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .slide-badge {
+    .brand-sub {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+      font-size: 0.68rem;
+      color: var(--color-muted);
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--color-secondary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
-    .slide-badge::before {
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-dark);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: var(--transition-fast);
+      position: relative;
+      padding: 0.4rem 0;
+    }
+
+    .nav-links a::after {
       content: '';
-      display: inline-block;
-      width: 18px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
       height: 2px;
-      background: var(--color-secondary);
+      background: var(--color-accent);
+      transition: var(--transition-fast);
     }
 
-    .slide-title {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: clamp(1.4rem, 2.4vw, 2.1rem);
-      color: var(--color-primary);
-      letter-spacing: -0.01em;
-      line-height: 1.15;
+    .nav-links a:hover {
+      color: var(--color-accent);
     }
 
-    .slide-desc {
-      font-size: clamp(0.85rem, 1.05vw, 0.95rem);
-      color: var(--color-muted);
-      max-width: 980px;
-      line-height: 1.5;
-    }
-
-    /* ==========================================================================
-       LAYOUTS DE LÁMINAS (GRIDS ARQUITECTÓNICOS)
-       ========================================================================== */
-
-    /* Tarjeta de imagen arquitectónica con marco técnico */
-    .arch-card {
-      background: var(--color-surface);
-      border: var(--border-technical);
-      border-radius: 6px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      transition: var(--transition-smooth);
-      box-shadow: var(--shadow-subtle);
-      cursor: zoom-in;
-    }
-
-    .arch-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--color-secondary);
-    }
-
-    .arch-card-media {
-      position: relative;
+    .nav-links a:hover::after {
       width: 100%;
-      height: 100%;
-      min-height: 0;
-      overflow: hidden;
-      background-color: #E2E8F0;
     }
 
-    .arch-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .arch-card:hover img {
-      transform: scale(1.03);
-    }
-
-    .arch-card-meta {
-      padding: 0.6rem 0.9rem;
-      background: var(--color-surface);
-      border-top: 1px solid rgba(0, 43, 73, 0.08);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .arch-card-title {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: var(--color-primary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-right: 0.5rem;
-    }
-
-    .arch-card-tag {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--color-secondary);
-      flex-shrink: 0;
-      text-transform: uppercase;
-    }
-
-    /* Indicador flotante en hover */
-    .zoom-hint {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(0, 43, 73, 0.85);
-      color: #fff;
-      font-size: 0.65rem;
-      font-family: var(--font-mono);
-      padding: 3px 8px;
-      border-radius: 3px;
-      backdrop-filter: blur(4px);
-      opacity: 0;
-      transform: translateY(-4px);
-      transition: var(--transition-smooth);
-      pointer-events: none;
+    .header-actions {
       display: flex;
       align-items: center;
-      gap: 4px;
-    }
-
-    .arch-card:hover .zoom-hint {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Esquineros técnicos en las tarjetas */
-    .corner-plus {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      pointer-events: none;
-      z-index: 5;
-    }
-    .cp-tl { top: 4px; left: 4px; border-top: 1.5px solid var(--color-secondary); border-left: 1.5px solid var(--color-secondary); }
-    .cp-tr { top: 4px; right: 4px; border-top: 1.5px solid var(--color-secondary); border-right: 1.5px solid var(--color-secondary); }
-    .cp-bl { bottom: 4px; left: 4px; border-bottom: 1.5px solid var(--color-secondary); border-left: 1.5px solid var(--color-secondary); }
-    .cp-br { bottom: 4px; right: 4px; border-bottom: 1.5px solid var(--color-secondary); border-right: 1.5px solid var(--color-secondary); }
-
-    /* --- SLIDE 1: PORTADA --- */
-    .slide-portada {
-      text-align: center;
-      background: radial-gradient(circle at 50% 45%, rgba(74, 119, 157, 0.08) 0%, transparent 70%);
-    }
-
-    .portada-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .portada-badge-top {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--color-secondary);
-      margin-bottom: 1.5rem;
-      border: 1px solid var(--color-border);
-      padding: 0.35rem 1.25rem;
-      border-radius: 30px;
-      background: var(--color-surface);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .portada-logo-wrap {
-      max-width: 320px;
-      width: 75vw;
-      margin-bottom: 2rem;
-      padding: 1.25rem 2rem;
-      background: var(--color-surface);
-      border: var(--border-technical);
-      border-radius: 8px;
-      box-shadow: 0 8px 30px rgba(0, 43, 73, 0.08);
-      position: relative;
-    }
-
-    .portada-logo-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-
-    .portada-title {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: clamp(2rem, 4.5vw, 3.8rem);
-      color: var(--color-primary);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-      max-width: 1100px;
-    }
-
-    .portada-subtitle {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: clamp(1.1rem, 2vw, 1.8rem);
-      color: var(--color-secondary);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .portada-divider {
-      width: 80px;
-      height: 3px;
-      background: var(--color-primary);
-      margin-bottom: 1.5rem;
-    }
-
-    .portada-management {
-      font-family: var(--font-body);
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--color-dark);
-      letter-spacing: 0.05em;
-      margin-bottom: 2rem;
-    }
-
-    .portada-meta-board {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--color-muted);
-      border-top: 1px solid var(--color-border);
-      padding-top: 1.25rem;
-      max-width: 800px;
-      width: 100%;
-    }
-
-    .portada-meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .portada-meta-item span:first-child {
-      font-size: 0.65rem;
-      color: var(--color-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .portada-meta-item span:last-child {
-      font-weight: 600;
-      color: var(--color-primary);
-    }
-
-    /* --- SLIDE 2: GRID DE 2 COLUMNAS --- */
-    .grid-2-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      height: 100%;
-      flex-grow: 1;
-      min-height: 0;
-    }
-
-    /* --- SLIDE 3 & 4: GRID DE 3 COLUMNAS PROPORCIONALES --- */
-    .grid-3-equal {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      height: 100%;
-      flex-grow: 1;
-      min-height: 0;
-    }
-
-    /* --- SLIDE 6 & 7: GRID DE 4 ELEMENTOS (2x2) --- */
-    .grid-4-quad {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 1rem;
-      height: 100%;
-      flex-grow: 1;
-      min-height: 0;
-    }
-
-    /* --- SLIDE 5: GRID DE 3 ELEMENTOS (1 grande + 2 apiladas) --- */
-    .grid-3-col {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 1rem;
-      height: 100%;
-      flex-grow: 1;
-      min-height: 0;
-    }
-    .grid-3-col .item-span-v {
-      grid-row: span 2;
-    }
-
-    /* --- SLIDE 8: RECORRIDO VIRTUAL (VIDEO 16:9) --- */
-    .video-showcase-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      flex-grow: 1;
-      min-height: 0;
-    }
-
-    .video-frame {
-      width: 100%;
-      max-width: 1100px;
-      aspect-ratio: 16 / 9;
-      max-height: calc(100vh - 15rem);
-      background: #000;
-      border: 2px solid var(--color-primary);
-      border-radius: 8px;
-      box-shadow: 0 20px 40px -10px rgba(0, 43, 73, 0.25);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .video-frame video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .video-badge {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: rgba(0, 43, 73, 0.85);
-      backdrop-filter: blur(8px);
-      color: #FFF;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 4px;
-      letter-spacing: 0.08em;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      background-color: #22C55E;
-      border-radius: 50%;
-      display: inline-block;
-      animation: pulseDot 2s infinite;
-    }
-
-    @keyframes pulseDot {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    /* --- SLIDE 9: FICHA TÉCNICA DEL PROYECTO --- */
-    .specs-board {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 2rem;
-      height: 100%;
-      flex-grow: 1;
-      min-height: 0;
-      align-items: center;
-    }
-
-    .specs-table-card {
-      background: var(--color-surface);
-      border: var(--border-technical);
-      border-radius: 8px;
-      padding: 1.75rem;
-      box-shadow: var(--shadow-subtle);
-      position: relative;
-    }
-
-    .specs-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-
-    .specs-table tr {
-      border-bottom: 1px solid rgba(0, 43, 73, 0.08);
-    }
-
-    .specs-table tr:last-child {
-      border-bottom: none;
-    }
-
-    .specs-table th {
-      text-align: left;
-      padding: 1rem 0.75rem 1rem 0;
-      font-family: var(--font-heading);
-      font-weight: 600;
-      color: var(--color-secondary);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      width: 32%;
-      vertical-align: top;
-    }
-
-    .specs-table td {
-      padding: 1rem 0;
-      color: var(--color-dark);
-      font-weight: 500;
-      line-height: 1.5;
-    }
-
-    .specs-summary-card {
-      background: linear-gradient(145deg, #002B49 0%, #0A3C63 100%);
-      color: #FFF;
-      border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 16px 36px -8px rgba(0, 43, 73, 0.3);
-      position: relative;
-    }
-
-    .specs-summary-card h3 {
-      font-family: var(--font-heading);
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: #FFF;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      padding-bottom: 0.75rem;
-    }
-
-    .specs-highlights {
-      display: flex;
-      flex-direction: column;
       gap: 1rem;
     }
 
-    .highlight-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.88rem;
-      line-height: 1.45;
-      color: #E2E8F0;
-    }
-
-    .highlight-bullet {
-      width: 6px;
-      height: 6px;
-      background: #38BDF8;
-      border-radius: 50%;
-      margin-top: 6px;
-      flex-shrink: 0;
-    }
-
-    /* --- SLIDE 10: CIERRE CORPORATIVO --- */
-    .slide-cierre {
-      text-align: center;
-      background: radial-gradient(circle at 50% 50%, rgba(0, 43, 73, 0.06) 0%, transparent 65%);
-    }
-
-    .cierre-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .cierre-logo {
-      max-width: 280px;
-      width: 70vw;
-      margin-bottom: 2rem;
-      background: var(--color-surface);
-      padding: 1.25rem 1.75rem;
-      border-radius: 6px;
-      border: var(--border-technical);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .cierre-logo img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .cierre-big-text {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      color: var(--color-primary);
-      letter-spacing: 0.08em;
-      line-height: 1;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .cierre-line {
-      width: 100px;
-      height: 4px;
-      background: var(--color-secondary);
-      margin-bottom: 2rem;
-    }
-
-    .cierre-credit {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-      color: var(--color-primary);
-      letter-spacing: 0.04em;
-      margin-bottom: 0.5rem;
-    }
-
-    .cierre-subcredit {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--color-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-    }
-
-    .cierre-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .btn-restart {
+    .btn-header-cta {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -751,124 +201,1185 @@
       color: #FFF;
       font-family: var(--font-heading);
       font-weight: 600;
-      font-size: 0.85rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      letter-spacing: 0.05em;
+      font-size: 0.78rem;
+      padding: 0.55rem 1.15rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       transition: var(--transition-smooth);
-      box-shadow: 0 4px 12px rgba(0, 43, 73, 0.2);
+      box-shadow: 0 4px 12px rgba(10, 37, 64, 0.15);
     }
 
-    .btn-restart:hover {
-      background: var(--color-secondary);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 43, 73, 0.25);
+    .btn-header-cta:hover {
+      background: var(--color-accent);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
     }
 
     /* ==========================================================================
-       CONTROLES DE NAVEGACIÓN FLOTANTES (UI/UX ARQUITECTÓNICO)
+       3. CONTENEDOR GENERAL Y ESTRUCTURA DE SECCIONES
        ========================================================================== */
-
-    /* Indicador lateral derecho de diapositivas (Dots con tooltip) */
-    .nav-dots {
-      position: fixed;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      z-index: 100;
+    main {
+      position: relative;
+      z-index: 10;
+      width: 100%;
     }
 
-    .dot-item {
+    .section-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 0.75rem;
+      background: rgba(74, 119, 157, 0.1);
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      border: 1px solid rgba(74, 119, 157, 0.2);
+    }
+
+    .section-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3.2vw, 2.75rem);
+      color: var(--color-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+      color: var(--color-muted);
+      max-width: 880px;
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       4. HERO SECTION (PORTADA TÉCNICA REVIT DUAL - #F8F9FA)
+       ========================================================================== */
+    .hero-section {
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: 0.75rem;
-      cursor: pointer;
+      justify-content: center;
       position: relative;
-      text-decoration: none;
+      background-color: var(--color-bg-base);
+      background-image: 
+        radial-gradient(circle at 1px 1px, rgba(10, 37, 64, 0.08) 1px, transparent 0),
+        linear-gradient(to right, rgba(10, 37, 64, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(10, 37, 64, 0.025) 1px, transparent 1px);
+      background-size: 24px 24px, 48px 48px, 48px 48px;
+      color: var(--color-dark);
+      padding: 7.5rem 1.5rem 4.5rem 1.5rem;
     }
 
-    .dot-label {
+    .hero-content {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .hero-badge-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-revit-badge {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--color-primary);
-      background: var(--color-surface);
-      border: var(--border-technical);
-      padding: 0.2rem 0.5rem;
-      border-radius: 3px;
-      white-space: nowrap;
-      opacity: 0;
-      transform: translateX(8px);
+      background: rgba(10, 37, 64, 0.06);
+      border: 1px solid rgba(10, 37, 64, 0.18);
+      padding: 0.45rem 1.25rem;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .hero-revit-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--color-accent);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2rem, 4.2vw, 3.5rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      max-width: 1080px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: clamp(1rem, 1.4vw, 1.25rem);
+      color: var(--color-muted);
+      max-width: 880px;
+      line-height: 1.55;
+    }
+
+    /* Showcase Dual de Modelos 3D (2 columnas en desktop, 1 en móvil) */
+    .hero-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      width: 100%;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    .hero-dual-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      cursor: zoom-in;
       transition: var(--transition-smooth);
-      pointer-events: none;
-      box-shadow: var(--shadow-subtle);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .hero-dual-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px -4px rgba(10, 37, 64, 0.14);
+      border-color: var(--color-secondary);
+    }
+
+    .hero-card-header {
+      background: var(--color-surface-alt);
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-card-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .hero-card-status::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: #10B981;
+      border-radius: 50%;
+    }
+
+    .hero-card-action {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+    }
+
+    .hero-media-wrap {
+      width: 100%;
+      height: 380px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      padding: 1rem;
+    }
+
+    .hero-media-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .hero-dual-card:hover .hero-media-wrap img {
+      transform: scale(1.03);
+    }
+
+    .hero-card-footer {
+      padding: 1rem 1.25rem;
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .hero-card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-card-caption {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--color-primary);
+      line-height: 1.35;
+    }
+
+    .hero-actions-center {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.25rem;
+      width: 100%;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--color-primary);
+      color: #FFF;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.95rem 2.25rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: var(--transition-smooth);
+      box-shadow: 0 8px 20px rgba(10, 37, 64, 0.2);
+    }
+
+    .btn-hero-primary:hover {
+      background: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(59, 130, 246, 0.35);
+    }
+
+    /* ==========================================================================
+       5. SECCIÓN 1: PLANIMETRÍA 2D & CENTRO DE DESCARGAS
+       ========================================================================== */
+    .planimetria-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .technical-preview-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      cursor: zoom-in;
+      transition: var(--transition-smooth);
+    }
+
+    .technical-preview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--color-secondary);
+    }
+
+    .tech-card-header {
+      background: var(--color-surface-alt);
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tech-card-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .tech-card-status::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #10B981;
+      border-radius: 50%;
+    }
+
+    .tech-card-action {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
       font-weight: 500;
     }
 
-    .dot-item:hover .dot-label {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .dot-circle {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(0, 43, 73, 0.2);
-      border: 1.5px solid transparent;
-      transition: var(--transition-smooth);
-    }
-
-    .dot-item.active .dot-circle {
-      background: var(--color-primary);
-      border-color: var(--color-secondary);
-      transform: scale(1.35);
-      box-shadow: 0 0 0 3px rgba(74, 119, 157, 0.25);
-    }
-
-
-
-    /* Botón flotante para alternar pantalla completa */
-    .fullscreen-toggle {
-      background: none;
-      border: none;
-      color: var(--color-muted);
-      cursor: pointer;
+    .tech-media-wrap {
+      width: 100%;
+      height: 480px;
+      background: #0F172A;
       display: flex;
       align-items: center;
-      padding: 4px;
-      border-radius: 4px;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .tech-media-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .technical-preview-card:hover .tech-media-wrap img {
+      transform: scale(1.02);
+    }
+
+    .tech-card-footer {
+      padding: 1rem 1.25rem;
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .tech-card-footer h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--color-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .tech-card-footer p {
+      font-size: 0.82rem;
+      color: var(--color-muted);
+      line-height: 1.45;
+    }
+
+    /* Centro de Descargas */
+    .download-hub {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .download-hub-intro {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .download-hub-intro h3 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .download-hub-intro p {
+      font-size: 0.86rem;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+
+    .download-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow-subtle);
       transition: var(--transition-smooth);
     }
-    .fullscreen-toggle:hover {
+
+    .download-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-card);
+    }
+
+    .download-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .download-zone-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
       color: var(--color-primary);
-      background: rgba(0, 43, 73, 0.06);
+    }
+
+    .download-zone-level {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-secondary);
+      font-weight: 600;
+      background: rgba(74, 119, 157, 0.1);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .download-buttons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .btn-download-file {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.7rem 0.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 600;
+      transition: var(--transition-fast);
+      border: 1px solid transparent;
+      text-align: center;
+    }
+
+    .btn-download-pdf {
+      background: rgba(220, 38, 38, 0.08);
+      color: #B91C1C;
+      border-color: rgba(220, 38, 38, 0.2);
+    }
+
+    .btn-download-pdf:hover {
+      background: #DC2626;
+      color: #FFF;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+    }
+
+    .btn-download-dwg {
+      background: rgba(37, 99, 235, 0.08);
+      color: #1D4ED8;
+      border-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-download-dwg:hover {
+      background: #2563EB;
+      color: #FFF;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
     }
 
     /* ==========================================================================
-       MODAL LIGHTBOX ARQUITECTÓNICO DE ALTA DEFINICIÓN
+       6. SECCIÓN 2: CUANTIFICACIÓN MEP & METRADOS PARA PROCURA
+       ========================================================================== */
+    .mep-section-wrap {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .mep-grid-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .mep-narrative {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .mep-value-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: rgba(59, 130, 246, 0.08);
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    /* Tarjetas de Cómputos Clave (Exact KPIs) */
+    .mep-kpis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .mep-kpi-box {
+      background: var(--color-bg-base);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .mep-kpi-number {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.45rem;
+      color: var(--color-primary);
+    }
+
+    .mep-kpi-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .mep-kpi-subtext {
+      font-size: 0.78rem;
+      color: var(--color-dark);
+      line-height: 1.35;
+    }
+
+    .mep-delimitacion-note {
+      background: rgba(100, 116, 139, 0.08);
+      border-left: 3px solid var(--color-secondary);
+      padding: 0.75rem 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      line-height: 1.45;
+    }
+
+    .btn-download-mep-report {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: var(--color-primary);
+      color: #FFF;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 1rem 1.85rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      box-shadow: 0 6px 18px rgba(10, 37, 64, 0.2);
+      width: fit-content;
+    }
+
+    .btn-download-mep-report:hover {
+      background: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(59, 130, 246, 0.3);
+    }
+
+    /* ==========================================================================
+       7. SECCIÓN 3: GALERÍAS DE RENDERS 3D (BLOQUE A & BLOQUE B)
+       ========================================================================== */
+    .gallery-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 2.25rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 1.25rem;
+    }
+
+    .filter-btn {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: 0.55rem 1.15rem;
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .filter-btn:hover {
+      color: var(--color-primary);
+      border-color: var(--color-secondary);
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      color: #FFF;
+      border-color: var(--color-primary);
+      box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
+    }
+
+    .filter-count {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      opacity: 0.75;
+    }
+
+    .renders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .render-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-smooth);
+      cursor: zoom-in;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .render-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--color-secondary);
+    }
+
+    .render-media-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      background: #0F172A;
+    }
+
+    .render-media-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+      display: block;
+    }
+
+    .render-card:hover .render-media-container img {
+      transform: scale(1.05);
+    }
+
+    .render-zoom-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(10, 37, 64, 0.85);
+      backdrop-filter: blur(6px);
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.3rem 0.65rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .render-card:hover .render-zoom-tag {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .render-meta-wrap {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      background: var(--color-surface);
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .render-meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .render-level-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: rgba(59, 130, 246, 0.08);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .render-camera-code {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--color-muted);
+    }
+
+    .render-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--color-primary);
+      line-height: 1.3;
+    }
+
+    .render-caption {
+      font-size: 0.82rem;
+      color: var(--color-muted);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       8. SECCIÓN 4: RECORRIDO VIRTUAL Y SIMULACIÓN CINEMÁTICA
+       ========================================================================== */
+    .video-showcase-wrapper {
+      width: 100%;
+      max-width: 1150px;
+      margin: 0 auto;
+      background: #0A141E;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 25px 60px -15px rgba(10, 37, 64, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .video-header-bar {
+      padding: 1rem 1.5rem;
+      background: rgba(10, 37, 64, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .video-badge-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: #FFF;
+      font-weight: 600;
+    }
+
+    .video-dot-pulse {
+      width: 8px;
+      height: 8px;
+      background: #10B981;
+      border-radius: 50%;
+      animation: pulseAnimation 2s infinite;
+    }
+
+    @keyframes pulseAnimation {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .video-specs-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #94A3B8;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-features-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .video-feature-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .video-feature-card h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--color-primary);
+    }
+
+    .video-feature-card p {
+      font-size: 0.82rem;
+      color: var(--color-muted);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       9. SECCIÓN 5: MATRIZ DE COMPETENCIAS BIM
+       ========================================================================== */
+    .competencies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .competency-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .competency-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--color-accent);
+      opacity: 0;
+      transition: var(--transition-fast);
+    }
+
+    .competency-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(10, 37, 64, 0.2);
+    }
+
+    .competency-card:hover::before {
+      opacity: 1;
+    }
+
+    .competency-number {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      background: rgba(59, 130, 246, 0.08);
+      width: fit-content;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+    }
+
+    .competency-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--color-primary);
+      line-height: 1.25;
+    }
+
+    .competency-desc {
+      font-size: 0.88rem;
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    .competency-deliverables {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .deliverable-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--color-dark);
+      font-weight: 500;
+    }
+
+    .deliverable-item svg {
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       10. FOOTER & CIERRE PROFESIONAL
+       ========================================================================== */
+    .showcase-footer {
+      background: var(--color-primary);
+      color: #FFF;
+      padding: 5rem 1.5rem 2.5rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .footer-brand h2 {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.65rem;
+      color: #FFF;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .footer-cta-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-cta-box h3 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFF;
+    }
+
+    .footer-cta-box p {
+      font-size: 0.82rem;
+      color: #94A3B8;
+      line-height: 1.5;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-footer-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-accent);
+      color: #FFF;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.84rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: var(--transition-fast);
+    }
+
+    .btn-footer-primary:hover {
+      background: #2563EB;
+      transform: translateY(-1px);
+    }
+
+    .btn-footer-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: #FFF;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.84rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: var(--transition-fast);
+    }
+
+    .btn-footer-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #FFF;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: #64748B;
+    }
+
+    /* Botón flotante para volver arriba */
+    .btn-scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 46px;
+      height: 46px;
+      background: var(--color-primary);
+      color: #FFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(10, 37, 64, 0.35);
+      z-index: 990;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(15px);
+      transition: var(--transition-smooth);
+    }
+
+    .btn-scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .btn-scroll-top:hover {
+      background: var(--color-accent);
+      transform: translateY(-3px);
+    }
+
+    /* ==========================================================================
+       11. MODAL LIGHTBOX ARQUITECTÓNICO HD
        ========================================================================== */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 18, 32, 0.94);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(10, 20, 30, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       z-index: 2000;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-between;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 1.5rem;
+      transition: opacity 0.3s ease;
+      padding: 1.25rem 2rem;
     }
 
     .lightbox-overlay.active {
@@ -877,49 +1388,46 @@
     }
 
     .lightbox-header {
-      position: absolute;
-      top: 1.25rem;
-      left: 2rem;
-      right: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #FFF;
-      font-family: var(--font-heading);
-      z-index: 10;
+      width: 100%;
+      z-index: 2010;
     }
 
     .lightbox-title-wrap {
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 0.25rem;
     }
 
     .lightbox-title {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
       color: #FFF;
     }
 
     .lightbox-caption {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       color: #94A3B8;
+      max-width: 800px;
     }
 
     .lightbox-close {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #FFF;
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
-      transition: var(--transition-smooth);
+      font-size: 1.35rem;
+      transition: var(--transition-fast);
     }
 
     .lightbox-close:hover {
@@ -929,108 +1437,109 @@
 
     .lightbox-stage {
       position: relative;
-      max-width: 90vw;
-      max-height: 80vh;
+      width: 100%;
+      height: calc(100vh - 160px);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     .lightbox-image {
-      max-width: 100%;
-      max-height: 80vh;
+      max-width: 90vw;
+      max-height: 75vh;
       object-fit: contain;
-      border-radius: 4px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-      transform: scale(0.95);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 6px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+      transform: scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .lightbox-overlay.active .lightbox-image {
       transform: scale(1);
     }
 
-    .lightbox-btn {
+    .lightbox-nav-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #FFF;
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: var(--transition-smooth);
-      z-index: 10;
+      transition: var(--transition-fast);
+      z-index: 2020;
     }
 
-    .lightbox-btn:hover {
-      background: rgba(255, 255, 255, 0.28);
+    .lightbox-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
       transform: translateY(-50%) scale(1.08);
     }
 
     .lightbox-prev { left: 1.5rem; }
     .lightbox-next { right: 1.5rem; }
 
+    .lightbox-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      z-index: 2010;
+    }
+
     .lightbox-counter {
-      position: absolute;
-      bottom: 1.5rem;
       font-family: var(--font-mono);
       font-size: 0.8rem;
       color: #94A3B8;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 0.3rem 0.85rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 0.4rem 1rem;
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     /* ==========================================================================
-       RESPONSIVE DESIGN (ADAPTABILIDAD PARA DISPOSITIVOS MÓVILES Y TABLETS)
+       12. RESPONSIVE DESIGN (TABLET & MÓVIL)
        ========================================================================== */
     @media (max-width: 1024px) {
-      .specs-board {
+      .top-header { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .planimetria-layout,
+      .mep-grid-layout,
+      .footer-top {
         grid-template-columns: 1fr;
-        gap: 1.25rem;
+        gap: 2rem;
       }
-      .nav-dots { display: none; }
-      .slide-inner {
-        max-height: none;
+      .video-features-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
       }
     }
 
+    @media (max-width: 1024px) {
+      .hero-dual-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .hero-media-wrap { height: 320px; }
+    }
+
     @media (max-width: 768px) {
-      .slide {
-        min-height: auto;
-        height: auto;
-        padding: 4.5rem 1.25rem 2.5rem 1.25rem;
-      }
-      .grid-2-col,
-      .grid-3-equal,
-      .grid-4-quad,
-      .grid-3-col {
-        grid-template-columns: 1fr !important;
-        grid-template-rows: auto !important;
-        height: auto;
-        gap: 1rem;
-      }
-      .grid-3-col .item-span-v {
-        grid-row: auto;
-      }
-      .arch-card-media {
-        height: 240px;
-      }
-      .video-frame {
-        max-height: 280px;
-      }
-      .specs-table th {
-        width: 40%;
-      }
-      .lightbox-prev { left: 0.5rem; width: 40px; height: 40px; }
-      .lightbox-next { right: 0.5rem; width: 40px; height: 40px; }
+      .section-container { padding: 4.5rem 1.25rem; }
+      .hero-section { padding: 6rem 1.25rem 3.5rem 1.25rem; }
+      .hero-dual-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .hero-media-wrap { height: 260px; }
+      .mep-section-wrap { padding: 1.75rem; }
+      .mep-kpis-grid { grid-template-columns: 1fr; }
+      .renders-grid { grid-template-columns: 1fr; }
+      .download-buttons-grid { grid-template-columns: 1fr; }
+      .tech-media-wrap { height: 320px; }
+      .lightbox-prev { left: 0.5rem; width: 42px; height: 42px; }
+      .lightbox-next { right: 0.5rem; width: 42px; height: 42px; }
+      .lightbox-overlay { padding: 1rem; }
+      .btn-scroll-top { bottom: 1.25rem; right: 1.25rem; width: 40px; height: 40px; }
     }
   </style>
 </head>
@@ -1039,551 +1548,952 @@
   <!-- Retícula arquitectónica de fondo -->
   <div class="arch-grid-bg" aria-hidden="true"></div>
 
-  <!-- Marcas de coordenadas técnicas en las esquinas -->
-  <div class="arch-corner-mark corner-tl" aria-hidden="true">+ N: 10°28'12" W: 66°33'45"</div>
-  <div class="arch-corner-mark corner-tr" aria-hidden="true">REF: JSL-GT-2026-ARQ</div>
-  <div class="arch-corner-mark corner-bl" aria-hidden="true">ELEV. BASE: +328.50 MSNM</div>
-  <div class="arch-corner-mark corner-br" aria-hidden="true">SISTEMA MODULAR ISO</div>
+  <!-- ==========================================================================
+       HEADER Y NAVEGACIÓN TÉCNICA
+       ========================================================================== -->
+  <header class="top-header">
+    <a href="#hero" class="brand-group" title="Volver al inicio">
+      <div class="brand-icon">BIM</div>
+      <div class="brand-text">
+        <span class="brand-title">Modelado BIM, Planimetría Técnica & Visualización 3D</span>
+        <span class="brand-sub">Portfolio Showcase</span>
+      </div>
+    </a>
 
-  <!-- Barra superior técnica -->
-  <header class="arch-topbar">
-    <div class="topbar-left">
-      <span class="brand-tag">CORPORACIÓN JSL</span>
-      <span class="project-tag">PLANTA GUATIRE &bull; OFICINAS & COMEDOR</span>
-    </div>
-    <div class="topbar-right">
-      <span class="sheet-indicator" id="topbar-sheet-label">LÁMINA 01 / 10</span>
-      <button class="fullscreen-toggle" id="fullscreen-toggle" title="Pantalla Completa (F11)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+    <nav aria-label="Navegación principal">
+      <ul class="nav-links">
+        <li><a href="#planimetria">Planimetría 2D</a></li>
+        <li><a href="#computos-mep">Cuantificación MEP</a></li>
+        <li><a href="#renders-3d">Galería 3D</a></li>
+        <li><a href="#recorrido-virtual">Recorrido Virtual</a></li>
+        <li><a href="#competencias">Competencias</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#planimetria" class="btn-header-cta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2 2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
         </svg>
-      </button>
+        Descargar Planos
+      </a>
     </div>
   </header>
 
-  <!-- Navegación lateral derecha (Dots) -->
-  <nav class="nav-dots" id="nav-dots" aria-label="Navegación de Láminas">
-    <a href="#slide-1" class="dot-item active" data-index="0">
-      <span class="dot-label">01. Portada Institucional</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-2" class="dot-item" data-index="1">
-      <span class="dot-label">02. Implantación y Fachadas</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-3" class="dot-item" data-index="2">
-      <span class="dot-label">03. Oficinas Planta Baja</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-4" class="dot-item" data-index="3">
-      <span class="dot-label">04. Oficinas Nivel 2</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-5" class="dot-item" data-index="4">
-      <span class="dot-label">05. Conexiones y Terrazas</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-6" class="dot-item" data-index="5">
-      <span class="dot-label">06. Comedor - General</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-7" class="dot-item" data-index="6">
-      <span class="dot-label">07. Comedor - Servicios</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-8" class="dot-item" data-index="7">
-      <span class="dot-label">08. Recorrido Virtual 3D</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-9" class="dot-item" data-index="8">
-      <span class="dot-label">09. Ficha Técnica</span>
-      <span class="dot-circle"></span>
-    </a>
-    <a href="#slide-10" class="dot-item" data-index="9">
-      <span class="dot-label">10. Cierre Corporativo</span>
-      <span class="dot-circle"></span>
-    </a>
-  </nav>
-
-
-
-  <!-- ==========================================================================
-       CONTENEDOR DE LÁMINAS / DIAPOSITIVAS
-       ========================================================================== -->
-  <main class="presentation-container" id="presentation-container">
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 1: PORTADA
-         ------------------------------------------------------------------------ -->
-    <section class="slide slide-portada" id="slide-1" data-index="0">
-      <div class="slide-inner">
-        <div class="portada-content">
-          <div class="portada-badge-top">PROYECTO ARQUITECTÓNICO EJECUTIVO</div>
-          <div class="portada-logo-wrap">
-            <img src="CORPORACION JSL.jpg" alt="Logotipo Corporación JSL">
-          </div>
-          <h1 class="portada-title">OFICINAS ADMINISTRATIVAS & COMEDOR</h1>
-          <h2 class="portada-subtitle">PLANTA GUATIRE</h2>
-          <div class="portada-divider"></div>
-          <p class="portada-management">Gerencia de Proyectos de Infraestructura</p>
-
-          <div class="portada-meta-board">
-            <div class="portada-meta-item">
-              <span>UBICACIÓN</span>
-              <span>Guatire, Edo. Miranda</span>
-            </div>
-            <div class="portada-meta-item">
-              <span>SISTEMA ESTRUCTURAL</span>
-              <span>Modular Containers ISO</span>
-            </div>
-            <div class="portada-meta-item">
-              <span>FASE TÉCNICA</span>
-              <span>Ingeniería y Visualización 3D</span>
-            </div>
-            <div class="portada-meta-item">
-              <span>LÁMINA</span>
-              <span>01 / 10</span>
-            </div>
-          </div>
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION: SHOWCASE TÉCNICO REVIT DUAL
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="hero-content">
+        
+        <div class="hero-badge-wrap">
+          <span class="hero-revit-badge">BIM MODELING & ARCHITECTURAL VISUALIZATION</span>
         </div>
+
+        <h1 class="hero-title">PROYECTO INTEGRAL DE OFICINAS MODULARES & COMEDOR INDUSTRIAL</h1>
+        
+        <p class="hero-subtitle">
+          Desarrollo As-Built, Modelado Paramétrico en Revit, Cuantificación MEP y Planimetría CAD
+        </p>
+
+        <!-- Showcase Dual de Modelos 3D en Revit -->
+        <div class="hero-dual-grid">
+          
+          <!-- Tarjeta 1 (Izquierda): Portada 1.png -->
+          <article class="hero-dual-card" data-full-src="Portada 1.png" data-caption="Modelo 3D Revit | Perspectiva Isométrica - Oficinas Modulares en Contenedores" title="Clic para ampliar en pantalla completa">
+            <div class="hero-card-header">
+              <span class="hero-card-status">MODELO 3D REVIT // OFICINAS EN CONTENEDORES</span>
+              <span class="hero-card-action">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                Ampliar HD
+              </span>
+            </div>
+            <div class="hero-media-wrap">
+              <img src="Portada 1.png" alt="Modelo 3D Revit - Perspectiva Isométrica de Oficinas Modulares en Contenedores" loading="eager">
+            </div>
+            <div class="hero-card-footer">
+              <span class="hero-card-tag">PERSPECTIVA ISOMÉTRICA // MÓDULOS DE CONTENEDORES (6x40ft + 1x20ft)</span>
+              <h3 class="hero-card-caption">Modelo 3D Revit | Perspectiva Isométrica - Oficinas Modulares en Contenedores</h3>
+            </div>
+          </article>
+
+          <!-- Tarjeta 2 (Derecha): Portada 2.png -->
+          <article class="hero-dual-card" data-full-src="Portada 2.png" data-caption="Modelo 3D Revit | Perspectiva Axonométrica General B (Oficinas & Comedor)" title="Clic para ampliar en pantalla completa">
+            <div class="hero-card-header">
+              <span class="hero-card-status">MODELO 3D REVIT // AXONOMETRÍA B</span>
+              <span class="hero-card-action">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                Ampliar HD
+              </span>
+            </div>
+            <div class="hero-media-wrap">
+              <img src="Portada 2.png" alt="Modelo 3D Revit - Perspectiva Axonométrica General B (Oficinas & Comedor)" loading="eager">
+            </div>
+            <div class="hero-card-footer">
+              <span class="hero-card-tag">PERSPECTIVA AXONOMÉTRICA // ÁNGULO POSTERIOR-CONJUNTO</span>
+              <h3 class="hero-card-caption">Modelo 3D Revit | Perspectiva Axonométrica General B (Oficinas & Comedor)</h3>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Botón Inferior Centrado -->
+        <div class="hero-actions-center">
+          <a href="#planimetria" class="btn-hero-primary">
+            Explorar Planimetría & Cómputos MEP
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </a>
+        </div>
+
       </div>
     </section>
 
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 2: IMPLANTACIÓN Y FACHADAS EXTERIORES
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-2" data-index="1">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 02 // IMPLANTACIÓN ARQUITECTÓNICA</span>
-          <h2 class="slide-title">Implantación y Fachadas Exteriores</h2>
-          <p class="slide-desc">
-            Arquitectura modular industrial fundamentada en la adaptación estructural de contenedores marítimos de alta resistencia. 
-            El diseño optimiza el uso del suelo operativo en el patio de planta, integrando durabilidad frente a intemperie, rápida ejecución y mínima huella de intervención en sitio.
-          </p>
-        </header>
+    <!-- ==========================================================================
+         SECCIÓN 1: PLANIMETRÍA 2D & CENTRO DE DESCARGAS
+         ========================================================================== -->
+    <section class="section-container" id="planimetria">
+      <header class="section-header">
+        <span class="section-badge">Fase Técnica 01 // Scan-to-CAD & Planimetría</span>
+        <h2 class="section-title">Planimetría 2D y Distribución Funcional</h2>
+        <p class="section-desc">
+          Documentación técnica elaborada bajo metodología de levantamiento de precisión (Scan-to-CAD / Scan-to-BIM), estructurando circulaciones, plantas acotadas y distribución funcional en CAD.
+        </p>
+      </header>
 
-        <div class="grid-2-col">
-          <div class="arch-card" data-full-src="assets/oficinas/Fachada.webp" data-caption="Fachada Principal — Acceso corporativo con escalinata, pérgola de protección solar y volumetría modular en dos niveles.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media">
-              <img src="assets/oficinas/Fachada.webp" alt="Fachada Principal Modular" loading="lazy">
-            </div>
-            <div class="arch-card-meta">
-              <span class="arch-card-title">Fachada Principal y Acceso Peatonal</span>
-              <span class="arch-card-tag">ELEVACIÓN NORTE</span>
-            </div>
+      <div class="planimetria-layout">
+        <!-- Vista previa destacada en marco técnico -->
+        <div class="technical-preview-card" data-full-src="Comedor y Oficinas plano 2D.png" data-caption="Plano General 2D — Zonificación coordinada de Oficinas Modulares (6x40ft + 1x20ft) y Comedor Industrial dentro de planta." title="Clic para ampliar plano en HD">
+          <div class="tech-card-header">
+            <span class="tech-card-status">PLANO GENERAL CAD CONSOLIDADO</span>
+            <span class="tech-card-action">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              Ampliar HD
+            </span>
           </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Zona posterior.webp" data-caption="Zona Posterior — Transición de servicios, ventilación cruzada y cerramientos perimetrales para protección de equipos técnicos.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media">
-              <img src="assets/oficinas/Zona posterior.webp" alt="Zona Posterior y Servicios" loading="lazy">
-            </div>
-            <div class="arch-card-meta">
-              <span class="arch-card-title">Zona Posterior y Conexión de Servicios</span>
-              <span class="arch-card-tag">ELEVACIÓN SUR</span>
-            </div>
+          <div class="tech-media-wrap">
+            <img src="Comedor y Oficinas plano 2D.png" alt="Plano 2D Consolidado de Oficinas y Comedor" loading="lazy">
+          </div>
+          <div class="tech-card-footer">
+            <h4>Distribución en Planta Consolidada (CAD 2D)</h4>
+            <p>Articulación modular en dos niveles con terrazas bioclimáticas y adecuación de espacio para el comedor industrial dentro de planta.</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 3: OFICINAS ADMINISTRATIVAS - PLANTA BAJA / NIVEL 1
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-3" data-index="2">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 03 // DISTRIBUCIÓN OPERATIVA</span>
-          <h2 class="slide-title">Oficinas Administrativas — Planta Baja / Nivel 1</h2>
-          <p class="slide-desc">
-            Áreas de atención directa, soporte operativo y coordinación de reuniones. Se implementan divisiones transparentes de vidrio templado para mantener permeabilidad visual, aislamiento acústico y un flujo expedito para el personal de planta.
-          </p>
-        </header>
-
-        <div class="grid-3-equal">
-          <div class="arch-card" data-full-src="assets/oficinas/Nivel 1 Oficina Planificacion.webp" data-caption="Nivel 1: Oficina de Planificación — Espacio abierto de trabajo técnico con mobiliario ergonómico e iluminación LED directa de alta eficiencia.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media">
-              <img src="assets/oficinas/Nivel 1 Oficina Planificacion.webp" alt="Oficina de Planificación Nivel 1" loading="lazy">
-            </div>
-            <div class="arch-card-meta">
-              <span class="arch-card-title">Oficina de Planificación</span>
-              <span class="arch-card-tag">PLANTA BAJA</span>
-            </div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Nivel 1 Oficina Talento Humano.webp" data-caption="Nivel 1: Oficina de Talento Humano — Entorno de recepción y gestión de personal con atmósfera cálida y acabados de fácil mantenimiento.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media">
-              <img src="assets/oficinas/Nivel 1 Oficina Talento Humano.webp" alt="Oficina Talento Humano Nivel 1" loading="lazy">
-            </div>
-            <div class="arch-card-meta">
-              <span class="arch-card-title">Oficina de Talento Humano</span>
-              <span class="arch-card-tag">PLANTA BAJA</span>
-            </div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Oficina pequeña reuniones.webp" data-caption="Planta Baja: Sala Auxiliar de Reuniones — Espacio ágil para sesiones de trabajo operativas, entrevistas y coordinación de turnos de planta.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media">
-              <img src="assets/oficinas/Oficina pequeña reuniones.webp" alt="Sala Auxiliar de Reuniones Planta Baja" loading="lazy">
-            </div>
-            <div class="arch-card-meta">
-              <span class="arch-card-title">Sala Auxiliar de Reuniones</span>
-              <span class="arch-card-tag">PLANTA BAJA</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 4: OFICINAS ADMINISTRATIVAS - NIVEL 2
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-4" data-index="3">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 04 // GESTIÓN Y LIDERAZGO</span>
-          <h2 class="slide-title">Oficinas Administrativas — Nivel 2</h2>
-          <p class="slide-desc">
-            Espacios destinados a la toma de decisiones, coordinación estratégica y deliberación de proyectos. Privacidad acústica garantizada, iluminación natural cenital/lateral y estaciones ejecutivas con tecnología integrada.
-          </p>
-        </header>
-
-        <div class="grid-3-equal">
-          <div class="arch-card" data-full-src="assets/oficinas/Nivel 2 Oficina Gerentes.webp" data-caption="Oficina de Gerencia — Despacho ejecutivo principal con área de reunión privada y visual panorámica hacia el patio de planta.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/oficinas/Nivel 2 Oficina Gerentes.webp" alt="Oficina de Gerentes Nivel 2" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Oficina de Gerentes</span><span class="arch-card-tag">NIVEL 2</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Nivel 2 Oficina Jefes.webp" data-caption="Oficina de Jefaturas — Estación de supervisión operativa y jefatura departamental con conectividad directa.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/oficinas/Nivel 2 Oficina Jefes.webp" alt="Oficina de Jefes Nivel 2" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Oficina de Jefes</span><span class="arch-card-tag">NIVEL 2</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Nivel 2 Sala de Reuniones.webp" data-caption="Sala Principal de Reuniones — Capacidad para equipos multidisciplinarios con proyección audiovisual y control acústico.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/oficinas/Nivel 2 Sala de Reuniones.webp" alt="Sala de Reuniones Nivel 2" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Sala Principal de Reuniones</span><span class="arch-card-tag">NIVEL 2</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 5: CONEXIONES Y ÁREAS DE ESPARCIMIENTO
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-5" data-index="4">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 05 // CIRCULACIÓN Y BIOCLIMÁTICA</span>
-          <h2 class="slide-title">Conexiones y Áreas de Esparcimiento</h2>
-          <p class="slide-desc">
-            Integración de terrazas ventiladas, pasarelas de rejilla industrial electroforjada y pérgolas sombreadas. La circulación exterior favorece la ventilación natural y propicia zonas confortables de descanso para el bienestar de los colaboradores.
-          </p>
-        </header>
-
-        <div class="grid-3-col">
-          <div class="arch-card item-span-v" data-full-src="assets/oficinas/Pasarela Nivel 2.webp" data-caption="Pasarela Elevada Nivel 2 — Conexión peatonal estructural exterior con barandas normadas de alta seguridad y vistas abiertas al entorno de planta.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/oficinas/Pasarela Nivel 2.webp" alt="Pasarela Nivel 2" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Pasarela Elevada de Circulación</span><span class="arch-card-tag">EXTERIOR N+3.00</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Area de descanso 1.webp" data-caption="Terraza de Descanso 1 — Pérgolas de sombreamiento bioclimático y mobiliario resistente para pausas activas al aire libre.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/oficinas/Area de descanso 1.webp" alt="Área de Descanso 1" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Terraza de Descanso y Pérgola</span><span class="arch-card-tag">TERRAZA NIVEL 2</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/oficinas/Area de descanso 2.webp" data-caption="Terraza de Descanso 2 — Perspectiva lateral del área de esparcimiento que articula ambos cuerpos de contenedores.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/oficinas/Area de descanso 2.webp" alt="Área de Descanso 2" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Espacio Exterior de Transición</span><span class="arch-card-tag">NIVEL 2</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 6: COMEDOR (VISTA GENERAL Y ACCESOS)
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-6" data-index="5">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 06 // BIENESTAR Y SERVICIOS</span>
-          <h2 class="slide-title">Infraestructura de Comedor — Vistas Generales</h2>
-          <p class="slide-desc">
-            Diseñado para maximizar la capacidad de comensales en turnos operativos. Combina ventanales con control solar térmico, disposición ergonómica de mesas comunales y una atmósfera cálida, limpia y profesional.
-          </p>
-        </header>
-
-        <div class="grid-4-quad">
-          <div class="arch-card" data-full-src="assets/comedor/Entrada Comedor.webp" data-caption="Entrada Principal al Comedor — Acceso amplio y fluido con puertas de cristal y estación de bienvenida higiénica.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Entrada Comedor.webp" alt="Entrada Comedor" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Acceso Principal al Comedor</span><span class="arch-card-tag">INGRESO</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/comedor/Vista comedor 1.webp" data-caption="Salón Comedor - Perspectiva 1 — Distribución perimetral y central optimizada para libre circulación y fácil desinfección.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Vista comedor 1.webp" alt="Vista Comedor 1" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Salón Principal de Comensales</span><span class="arch-card-tag">PERSPECTIVA A</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/comedor/Vista Comedor 2.webp" data-caption="Salón Comedor - Perspectiva 2 — Iluminación uniforme sobre módulos de mesas y revestimientos lavables de alta durabilidad.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Vista Comedor 2.webp" alt="Vista Comedor 2" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Zona de Mesas Comunales</span><span class="arch-card-tag">PERSPECTIVA B</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/comedor/Vista Comedor 3.webp" data-caption="Salón Comedor - Perspectiva 3 — Vista longitudinal destacando la amplitud espacial lograda mediante el ensamblaje de módulos.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Vista Comedor 3.webp" alt="Vista Comedor 3" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Amplitud y Confort Espacial</span><span class="arch-card-tag">PERSPECTIVA C</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 7: COMEDOR (ÁREAS DE APOYO Y SERVICIOS)
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-7" data-index="6">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 07 // LOGÍSTICA E HIGIENE</span>
-          <h2 class="slide-title">Comedor — Áreas de Apoyo y Servicios</h2>
-          <p class="slide-desc">
-            Cumplimiento riguroso de normativas higiénico-sanitarias industriales. Módulos de autoservicio en acero inoxidable quirúrgico, estación de calentamiento rápido y equipos de filtrado/hielo de alto rendimiento.
-          </p>
-        </header>
-
-        <div class="grid-4-quad">
-          <div class="arch-card" data-full-src="assets/comedor/Vista Comedor 4.webp" data-caption="Comedor - Conexión con Estaciones — Articulación entre la nave de consumo y las bahías de apoyo técnico.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Vista Comedor 4.webp" alt="Vista Comedor 4" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Circulación Hacia Servicios</span><span class="arch-card-tag">FLUJO RÁPIDO</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/comedor/Vista Comedor 5.webp" data-caption="Comedor - Perspectiva Posterior — Vista amplia del remate del salón hacia la estación de preparación.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Vista Comedor 5.webp" alt="Vista Comedor 5" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Visual Posterior del Salón</span><span class="arch-card-tag">SALÓN COMEDOR</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/comedor/Area de microondas.webp" data-caption="Área de Microondas — Batería lineal de calentamiento simultáneo para evitar tiempos de espera durante los turnos de almuerzo.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Area de microondas.webp" alt="Área de Microondas" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Estación de Calentamiento Rápido</span><span class="arch-card-tag">AUTOSERVICIO</span></div>
-          </div>
-
-          <div class="arch-card" data-full-src="assets/comedor/Area exhibidores, fregadero, fabricador de hielo y filtro.webp" data-caption="Área de Exhibidores y Dispensación — Mobiliario en acero inoxidable, fregadero industrial, fabricador de hielo y purificación de agua.">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span><span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <span class="zoom-hint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar HD</span>
-            <div class="arch-card-media"><img src="assets/comedor/Area exhibidores, fregadero, fabricador de hielo y filtro.webp" alt="Área exhibidores, fregadero, fabricador de hielo" loading="lazy"></div>
-            <div class="arch-card-meta"><span class="arch-card-title">Dispensadores, Filtros y Fregadero</span><span class="arch-card-tag">ÁREA SANITARIA</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 8: RECORRIDO VIRTUAL 3D (VIDEO)
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-8" data-index="7">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 08 // SIMULACIÓN CINEMATOGRÁFICA</span>
-          <h2 class="slide-title">Recorrido Virtual 3D</h2>
-          <p class="slide-desc">
-            Visualización volumétrica y espacial en movimiento. Experiencia inmersiva que ilustra la escala, volumetría, iluminación y materialidad de todo el complejo corporativo.
-          </p>
-        </header>
-
-        <div class="video-showcase-container">
-          <div class="video-frame">
-            <div class="video-badge">
-              <span class="live-dot"></span> RENDER VIRTUAL HD
-            </div>
-            <video controls preload="metadata" poster="assets/oficinas/Fachada.webp">
-              <source src="Render 720p.mp4" type="video/mp4">
-              Tu navegador no soporta el formato de video HTML5.
-            </video>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 9: FICHA TÉCNICA DEL PROYECTO
-         ------------------------------------------------------------------------ -->
-    <section class="slide" id="slide-9" data-index="8">
-      <div class="slide-inner">
-        <header class="slide-header">
-          <span class="slide-badge">LÁMINA 09 // ESPECIFICACIONES DE INGENIERÍA</span>
-          <h2 class="slide-title">Ficha Técnica del Proyecto</h2>
-          <p class="slide-desc">
-            Resumen de parámetros técnicos, constructivos y funcionales que fundamentan la memoria descriptiva de la obra.
-          </p>
-        </header>
-
-        <div class="specs-board">
-          <div class="specs-table-card">
-            <span class="corner-plus cp-tl"></span><span class="corner-plus cp-tr"></span>
-            <span class="corner-plus cp-bl"></span><span class="corner-plus cp-br"></span>
-            <table class="specs-table">
-              <tbody>
-                <tr>
-                  <th>Ubicación</th>
-                  <td>Planta Guatire, Municipio Zamora, Estado Miranda, Venezuela</td>
-                </tr>
-                <tr>
-                  <th>Tipología Constructiva</th>
-                  <td>Estructura Modular Industrial (ISO Containers 40ft High Cube acondicionados con aislamiento termoacústico de lana mineral y panel yeso)</td>
-                </tr>
-                <tr>
-                  <th>Programa Funcional</th>
-                  <td>Oficinas Administrativas Nivel 1 & 2 (Planificación, Talento Humano, Jefaturas, Gerencia), Salas de Conferencia, Terrazas de Descanso, Comedor General y Núcleo de Apoyo de Servicios</td>
-                </tr>
-                <tr>
-                  <th>Estado del Proyecto</th>
-                  <td>Proyecto Ejecutivo / Renders de Visualización y Especificación de Materiales</td>
-                </tr>
-                <tr>
-                  <th>Climatización</th>
-                  <td>Sistemas de expansión directa Multi-Split Inverter de bajo consumo y alta eficiencia</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="specs-summary-card">
-            <h3>Ventajas de la Solución Modular</h3>
-            <div class="specs-highlights">
-              <div class="highlight-item">
-                <span class="highlight-bullet"></span>
-                <span><strong>Reducción de tiempos de obra:</strong> Fabricación off-site y montaje en sitio en un 60% menos de tiempo en comparación con construcción tradicional.</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-bullet"></span>
-                <span><strong>Durabilidad y resistencia estructural:</strong> Acero corten anticorrosivo capaz de resistir las exigencias mecánicas del entorno fabril.</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-bullet"></span>
-                <span><strong>Sostenibilidad e impacto positivo:</strong> Reutilización inteligente de estructuras portuarias con acabados contemporáneos de primera línea.</span>
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-bullet"></span>
-                <span><strong>Flexibilidad operativa:</strong> Posibilidad de reubicación o expansión futura en módulos adicionales sin paralizar actividades.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ------------------------------------------------------------------------
-         LÁMINA 10: CIERRE CORPORATIVO
-         ------------------------------------------------------------------------ -->
-    <section class="slide slide-cierre" id="slide-10" data-index="9">
-      <div class="slide-inner">
-        <div class="cierre-container">
-          <div class="cierre-logo">
-            <img src="CORPORACION JSL.jpg" alt="Corporación JSL">
-          </div>
-          <h2 class="cierre-big-text">GRACIAS</h2>
-          <div class="cierre-line"></div>
-          <p class="cierre-credit">Gerencia de Proyectos de Infraestructura</p>
-          <p class="cierre-subcredit">Corporación JSL &bull; Planta Guatire</p>
-
-          <div class="cierre-actions">
-            <button class="btn-restart" id="btn-restart-pres">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="1 4 1 10 7 10"></polyline>
-                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        <!-- Centro de Descargas (Download Hub) -->
+        <div class="download-hub">
+          <div class="download-hub-intro">
+            <h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="#3B82F6">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
               </svg>
-              Reiniciar Presentación
-            </button>
+              Centro de Descargas Técnicas
+            </h3>
+            <p>Entregables oficiales listos para descarga en formato vectorial CAD nativo (.DWG) y documentación lista para ploteo (.PDF).</p>
+          </div>
+
+          <!-- Item 1: Oficinas Planta Baja -->
+          <div class="download-card">
+            <div class="download-card-header">
+              <div>
+                <h4 class="download-zone-title">Oficinas Nivel 1 (Planta Baja)</h4>
+                <p style="font-size: 0.8rem; color: var(--color-muted);">Planificación, Talento Humano y Sala Auxiliar</p>
+              </div>
+              <span class="download-zone-level">NIVEL 1</span>
+            </div>
+            <div class="download-buttons-grid">
+              <a href="Oficinas Nivel 1.pdf" download="Oficinas Nivel 1.pdf" class="btn-download-file btn-download-pdf">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                Descargar PDF
+              </a>
+              <a href="Oficinas nivel 1-Floor Plan - Nivel 1 Oficinas.dwg" download="Oficinas nivel 1-Floor Plan - Nivel 1 Oficinas.dwg" class="btn-download-file btn-download-dwg">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Descargar CAD
+              </a>
+            </div>
+          </div>
+
+          <!-- Item 2: Oficinas Planta Alta -->
+          <div class="download-card">
+            <div class="download-card-header">
+              <div>
+                <h4 class="download-zone-title">Oficinas Nivel 2 (Planta Alta)</h4>
+                <p style="font-size: 0.8rem; color: var(--color-muted);">Gerencias, Jefaturas y Sala Principal</p>
+              </div>
+              <span class="download-zone-level">NIVEL 2</span>
+            </div>
+            <div class="download-buttons-grid">
+              <a href="Oficinas Nivel 2.pdf" download="Oficinas Nivel 2.pdf" class="btn-download-file btn-download-pdf">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                Descargar PDF
+              </a>
+              <a href="Oficinas nivel 2-Floor Plan - Nivel 2 Oficinas.dwg" download="Oficinas nivel 2-Floor Plan - Nivel 2 Oficinas.dwg" class="btn-download-file btn-download-dwg">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Descargar CAD
+              </a>
+            </div>
+          </div>
+
+          <!-- Item 3: Comedor Nivel 1 -->
+          <div class="download-card">
+            <div class="download-card-header">
+              <div>
+                <h4 class="download-zone-title">Comedor Nivel 1</h4>
+                <p style="font-size: 0.8rem; color: var(--color-muted);">Salón comunal y estaciones de apoyo operativo</p>
+              </div>
+              <span class="download-zone-level">NIVEL 1</span>
+            </div>
+            <div class="download-buttons-grid">
+              <a href="Comedor Nivel 1.pdf" download="Comedor Nivel 1.pdf" class="btn-download-file btn-download-pdf">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                Descargar PDF
+              </a>
+              <a href="Comedor Nivel 1-Floor Plan - Comedor.dwg" download="Comedor Nivel 1-Floor Plan - Comedor.dwg" class="btn-download-file btn-download-dwg">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Descargar CAD
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ==========================================================================
+         SECCIÓN 2: CUANTIFICACIÓN MEP & METRADOS PARA PROCURA
+         ========================================================================== -->
+    <section class="section-container" id="computos-mep" style="padding-top: 2rem;">
+      <div class="mep-section-wrap">
+        <header class="section-header" style="margin-bottom: 2rem;">
+          <span class="section-badge">Fase Técnica 02 // Metrados BIM & Procura Técnica</span>
+          <h2 class="section-title">Cuantificación MEP & Metrados para Procura</h2>
+          <p class="section-desc">
+            Extracción paramétrica de cantidades a partir del modelo BIM para soporte directo de compras, cotizaciones y estructuración de cronograma en MS Project.
+          </p>
+        </header>
+
+        <div class="mep-grid-layout">
+          <!-- Narrativa técnica y KPIs exactos -->
+          <div class="mep-narrative">
+            <span class="mep-value-badge">EXTRACCIÓN PARAMÉTRICA BIM</span>
+            
+            <p style="font-size: 0.95rem; color: var(--color-dark); line-height: 1.6;">
+              El modelo digital coordinado permite la cuantificación anticipada de las instalaciones mecánicas, eléctricas y sanitarias principales, garantizando precisión en las órdenes de compra de materiales y eliminando imprevistos durante la instalación en obra.
+            </p>
+
+            <div class="mep-kpis-grid">
+              <!-- KPI 1: Cableado Eléctrico -->
+              <div class="mep-kpi-box">
+                <span class="mep-kpi-number">135 m</span>
+                <span class="mep-kpi-label">Cableado Eléctrico</span>
+                <span class="mep-kpi-subtext">Ruta de circuito principal con 4 conductores (540 m totales de cable)</span>
+              </div>
+
+              <!-- KPI 2: Canalizaciones Eléctricas -->
+              <div class="mep-kpi-box">
+                <span class="mep-kpi-number">127 m</span>
+                <span class="mep-kpi-label">Canalizaciones Eléctricas (Conduit)</span>
+                <span class="mep-kpi-subtext">Tuberías conduit metálicas RMC y no metálicas RNC Sch 80</span>
+              </div>
+
+              <!-- KPI 3: Red de Aguas Blancas -->
+              <div class="mep-kpi-box">
+                <span class="mep-kpi-number">49 m</span>
+                <span class="mep-kpi-label">Red de Aguas Blancas</span>
+                <span class="mep-kpi-subtext">Tubería para distribución de agua potable</span>
+              </div>
+
+              <!-- KPI 4: Red de Aguas Negras -->
+              <div class="mep-kpi-box">
+                <span class="mep-kpi-number">21 m</span>
+                <span class="mep-kpi-label">Red de Aguas Negras</span>
+                <span class="mep-kpi-subtext">Tubería para descargas y drenajes sanitarios</span>
+              </div>
+            </div>
+
+            <div class="mep-delimitacion-note">
+              <strong>Nota técnica de delimitación:</strong> Las líneas de gas/hydronic pertenecen a otros sectores de la planta y no forman parte de este cómputo. Este proyecto no incluye cálculo de m³ de relleno.
+            </div>
+
+            <div>
+              <a href="Comedor y Oficinas Acometida electrica y Plomeria.pdf" download="Comedor y Oficinas Acometida electrica y Plomeria.pdf" class="btn-download-mep-report">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2 2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Descargar Reporte MEP en PDF
+              </a>
+            </div>
+          </div>
+
+          <!-- Vista previa de Acometidas MEP -->
+          <div class="technical-preview-card" data-full-src="Comedor y Oficinas Acometida electrica y Plomeria.png" data-caption="Ruteo MEP y Acometidas — Esquema técnico tridimensional de acometidas eléctricas, canalizaciones y tuberías de plomería." title="Clic para ampliar en HD">
+            <div class="tech-card-header">
+              <span class="tech-card-status">ESQUEMA DE RUTEO MEP & ACOMETIDAS</span>
+              <span class="tech-card-action">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                Ampliar HD
+              </span>
+            </div>
+            <div class="tech-media-wrap" style="height: 400px;">
+              <img src="Comedor y Oficinas Acometida electrica y Plomeria.png" alt="Plano de Acometida Eléctrica y Plomería" loading="lazy">
+            </div>
+            <div class="tech-card-footer">
+              <h4>Trazado de Conductores e Instalaciones</h4>
+              <p>Representación tridimensional de canalizaciones principales para fuerza, iluminación y redes de agua potable y descargas hacia los módulos y comedor.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN 3: GALERÍAS DE RENDERS 3D (BLOQUE A & BLOQUE B)
+         ========================================================================== -->
+    <section class="section-container" id="renders-3d">
+      <header class="section-header">
+        <span class="section-badge">Fase Técnica 03 // Visualización Tridimensional</span>
+        <h2 class="section-title">Galería de Renders 3D Arquitectónicos</h2>
+        <p class="section-desc">
+          Modelado tridimensional de precisión geométrica con materiales basados en física (PBR), estudios de iluminación diurna y postproducción de alto nivel visual.
+        </p>
+      </header>
+
+      <!-- Filtros de Galería -->
+      <div class="gallery-filter-bar">
+        <button class="filter-btn active" data-filter="all">
+          Todos los Renders <span class="filter-count">(19)</span>
+        </button>
+        <button class="filter-btn" data-filter="oficinas-ext">
+          Oficinas: Exteriores & Terrazas <span class="filter-count">(5)</span>
+        </button>
+        <button class="filter-btn" data-filter="oficinas-n1">
+          Oficinas: Nivel 1 (PB) <span class="filter-count">(3)</span>
+        </button>
+        <button class="filter-btn" data-filter="oficinas-n2">
+          Oficinas: Nivel 2 (PA) <span class="filter-count">(3)</span>
+        </button>
+        <button class="filter-btn" data-filter="comedor">
+          Comedor Industrial dentro de Planta <span class="filter-count">(8)</span>
+        </button>
+      </div>
+
+      <!-- Cuadrícula de Renders -->
+      <div class="renders-grid" id="renders-grid">
+
+        <!-- ==================== BLOQUE A: OFICINAS MODULARES (6x40ft + 1x20ft) ==================== -->
+
+        <!-- 1. Fachada Principal -->
+        <article class="render-card" data-category="oficinas-ext" data-full-src="assets/oficinas/Fachada.webp" data-caption="Fachada Principal — Acceso a oficinas modulares con escalinata, pérgola de protección solar y volumetría en dos niveles (6 módulos de 40ft y 1 de 20ft).">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Fachada.webp" alt="Fachada Principal Modular" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS MODULARES</span>
+              <span class="render-camera-code">CAM_EXT_01</span>
+            </div>
+            <h3 class="render-title">Fachada Principal y Acceso Peatonal</h3>
+            <p class="render-caption">Volumetría exterior que integra módulos de 40ft y 20ft con ventanales continuos y elementos bioclimáticos.</p>
+          </div>
+        </article>
+
+        <!-- 2. Zona Posterior -->
+        <article class="render-card" data-category="oficinas-ext" data-full-src="assets/oficinas/Zona posterior.webp" data-caption="Zona Posterior — Transición de acometidas técnicas, ventilación cruzada y cerramientos perimetrales de protección.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Zona posterior.webp" alt="Zona Posterior y Equipos Técnicos" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS MODULARES</span>
+              <span class="render-camera-code">CAM_EXT_02</span>
+            </div>
+            <h3 class="render-title">Zona Posterior e Instalaciones</h3>
+            <p class="render-caption">Distribución trasera de unidades condensadoras de climatización y ruteos técnicos perimetrales.</p>
+          </div>
+        </article>
+
+        <!-- 3. Pasarela Nivel 2 -->
+        <article class="render-card" data-category="oficinas-ext" data-full-src="assets/oficinas/Pasarela Nivel 2.webp" data-caption="Pasarela Elevada Nivel 2 — Conexión peatonal estructural exterior con barandas de seguridad e iluminación lineal.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Pasarela Nivel 2.webp" alt="Pasarela Elevada Nivel 2" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS MODULARES</span>
+              <span class="render-camera-code">CAM_EXT_03</span>
+            </div>
+            <h3 class="render-title">Pasarela Elevada de Circulación</h3>
+            <p class="render-caption">Estructura metálica exterior que interconecta los módulos del nivel superior con visual despejada.</p>
+          </div>
+        </article>
+
+        <!-- 4. Terraza de Descanso 1 -->
+        <article class="render-card" data-category="oficinas-ext" data-full-src="assets/oficinas/Area de descanso 1.webp" data-caption="Terraza de Descanso 1 — Pérgolas de sombreamiento bioclimático y mobiliario resistente para pausas activas al aire libre.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Area de descanso 1.webp" alt="Terraza de Descanso 1" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS MODULARES</span>
+              <span class="render-camera-code">CAM_EXT_04</span>
+            </div>
+            <h3 class="render-title">Terraza de Descanso y Pérgola</h3>
+            <p class="render-caption">Espacio exterior techado con vigas de aluminio y confort térmico para el descanso del personal.</p>
+          </div>
+        </article>
+
+        <!-- 5. Terraza de Descanso 2 -->
+        <article class="render-card" data-category="oficinas-ext" data-full-src="assets/oficinas/Area de descanso 2.webp" data-caption="Terraza de Descanso 2 — Perspectiva lateral de área de esparcimiento que articula ambos cuerpos de contenedores.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Area de descanso 2.webp" alt="Terraza de Descanso 2" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS MODULARES</span>
+              <span class="render-camera-code">CAM_EXT_05</span>
+            </div>
+            <h3 class="render-title">Espacio Exterior de Transición</h3>
+            <p class="render-caption">Área de descanso ergonómica con acabados resistentes a intemperie y pavimento antideslizante.</p>
+          </div>
+        </article>
+
+        <!-- 6. Oficina de Planificación (Nivel 1) -->
+        <article class="render-card" data-category="oficinas-n1" data-full-src="assets/oficinas/Nivel 1 Oficina Planificacion.webp" data-caption="Nivel 1: Oficina de Planificación — Espacio abierto de trabajo técnico con mobiliario ergonómico e iluminación LED lineal.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Nivel 1 Oficina Planificacion.webp" alt="Oficina de Planificación Nivel 1" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS // NIVEL 1</span>
+              <span class="render-camera-code">CAM_INT_PB01</span>
+            </div>
+            <h3 class="render-title">Oficina de Planificación</h3>
+            <p class="render-caption">Estaciones de trabajo continuas con canalización integrada para redes de datos y telefonía.</p>
+          </div>
+        </article>
+
+        <!-- 7. Oficina de Talento Humano (Nivel 1) -->
+        <article class="render-card" data-category="oficinas-n1" data-full-src="assets/oficinas/Nivel 1 Oficina Talento Humano.webp" data-caption="Nivel 1: Oficina de Talento Humano — Entorno de recepción y atención al personal con divisiones acústicas vidriadas.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Nivel 1 Oficina Talento Humano.webp" alt="Oficina de Talento Humano Nivel 1" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS // NIVEL 1</span>
+              <span class="render-camera-code">CAM_INT_PB02</span>
+            </div>
+            <h3 class="render-title">Oficina de Talento Humano</h3>
+            <p class="render-caption">Diseño enfocado en la privacidad, ergonomía y atención fluida de los colaboradores.</p>
+          </div>
+        </article>
+
+        <!-- 8. Sala Auxiliar de Reuniones (Nivel 1) -->
+        <article class="render-card" data-category="oficinas-n1" data-full-src="assets/oficinas/Oficina pequeña reuniones.webp" data-caption="Planta Baja: Sala Auxiliar de Reuniones — Espacio para entrevistas, coordinación de turnos y trabajo focalizado.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Oficina pequeña reuniones.webp" alt="Sala Auxiliar de Reuniones Planta Baja" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS // NIVEL 1</span>
+              <span class="render-camera-code">CAM_INT_PB03</span>
+            </div>
+            <h3 class="render-title">Sala Auxiliar de Reuniones</h3>
+            <p class="render-caption">Ambiente acústicamente confortable para reuniones ejecutivas cortas y entrevistas.</p>
+          </div>
+        </article>
+
+        <!-- 9. Oficina de Gerentes (Nivel 2) -->
+        <article class="render-card" data-category="oficinas-n2" data-full-src="assets/oficinas/Nivel 2 Oficina Gerentes.webp" data-caption="Oficina de Gerencia — Despacho ejecutivo principal con área de reunión privada y visual estratégica.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Nivel 2 Oficina Gerentes.webp" alt="Oficina de Gerentes Nivel 2" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS // NIVEL 2</span>
+              <span class="render-camera-code">CAM_INT_N201</span>
+            </div>
+            <h3 class="render-title">Oficina de Gerencia</h3>
+            <p class="render-caption">Acabados sobrios en madera nogal y perfilería negra mate con iluminación puntual de alta gama.</p>
+          </div>
+        </article>
+
+        <!-- 10. Oficina de Jefes (Nivel 2) -->
+        <article class="render-card" data-category="oficinas-n2" data-full-src="assets/oficinas/Nivel 2 Oficina Jefes.webp" data-caption="Oficina de Jefaturas — Estación de supervisión operativa y jefatura departamental.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Nivel 2 Oficina Jefes.webp" alt="Oficina de Jefes Nivel 2" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS // NIVEL 2</span>
+              <span class="render-camera-code">CAM_INT_N202</span>
+            </div>
+            <h3 class="render-title">Oficina de Jefaturas</h3>
+            <p class="render-caption">Puestos dobles con archivo técnico integrado y conexión directa a la pasarela exterior.</p>
+          </div>
+        </article>
+
+        <!-- 11. Sala Principal de Reuniones (Nivel 2) -->
+        <article class="render-card" data-category="oficinas-n2" data-full-src="assets/oficinas/Nivel 2 Sala de Reuniones.webp" data-caption="Sala Principal de Reuniones — Mesa de conferencias para equipos multidisciplinarios con soporte audiovisual.">
+          <div class="render-media-container">
+            <img src="assets/oficinas/Nivel 2 Sala de Reuniones.webp" alt="Sala Principal de Reuniones Nivel 2" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">OFICINAS // NIVEL 2</span>
+              <span class="render-camera-code">CAM_INT_N203</span>
+            </div>
+            <h3 class="render-title">Sala Principal de Reuniones</h3>
+            <p class="render-caption">Espacio corporativo con acondicionamiento acústico, conectividad multimedia e iluminación uniforme.</p>
+          </div>
+        </article>
+
+        <!-- ==================== BLOQUE B: COMEDOR INDUSTRIAL DENTRO DE PLANTA ==================== -->
+
+        <!-- 12. Entrada Comedor -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Entrada Comedor.webp" data-caption="Entrada Principal al Comedor — Acceso amplio con cerramiento acristalado y control de acceso.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Entrada Comedor.webp" alt="Entrada Principal Comedor Industrial" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_COM_01</span>
+            </div>
+            <h3 class="render-title">Acceso Principal al Comedor</h3>
+            <p class="render-caption">Ingreso fluido con puertas de cristal y ventilación adecuada para el personal de los turnos operativos.</p>
+          </div>
+        </article>
+
+        <!-- 13. Vista Comedor 1 -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Vista comedor 1.webp" data-caption="Salón Comedor - Perspectiva 1 — Distribución de mesas optimizada para libre circulación y fácil higienización.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Vista comedor 1.webp" alt="Salón Principal Comensales 1" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_COM_02</span>
+            </div>
+            <h3 class="render-title">Salón Principal de Comensales</h3>
+            <p class="render-caption">Disposición ergonómica de mobiliario con acabados lavables de alta durabilidad y piso continuo de alto tráfico.</p>
+          </div>
+        </article>
+
+        <!-- 14. Vista Comedor 2 -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Vista Comedor 2.webp" data-caption="Salón Comedor - Perspectiva 2 — Iluminación uniforme sobre módulos de mesas comunitarias.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Vista Comedor 2.webp" alt="Zona de Mesas Comunales 2" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_COM_03</span>
+            </div>
+            <h3 class="render-title">Zona de Mesas Comunales</h3>
+            <p class="render-caption">Mobiliario resistente para optimizar la capacidad de comensales por turno con excelente confort térmico.</p>
+          </div>
+        </article>
+
+        <!-- 15. Vista Comedor 3 -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Vista Comedor 3.webp" data-caption="Salón Comedor - Perspectiva 3 — Vista longitudinal destacando la amplitud espacial del área adaptada dentro de planta.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Vista Comedor 3.webp" alt="Amplitud y Confort Espacial 3" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_COM_04</span>
+            </div>
+            <h3 class="render-title">Amplitud y Confort Espacial</h3>
+            <p class="render-caption">Perspectiva longitudinal que ilustra la diafanidad y la iluminación difusa en todo el salón.</p>
+          </div>
+        </article>
+
+        <!-- 16. Vista Comedor 4 -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Vista Comedor 4.webp" data-caption="Comedor - Conexión con Estaciones — Articulación entre la zona de comensales y los módulos de autoservicio.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Vista Comedor 4.webp" alt="Circulación Hacia Estaciones 4" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_COM_05</span>
+            </div>
+            <h3 class="render-title">Circulación Hacia Autoservicio</h3>
+            <p class="render-caption">Transición fluida hacia las bahías de calentamiento de alimentos y dispensación de bebidas.</p>
+          </div>
+        </article>
+
+        <!-- 17. Vista Comedor 5 -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Vista Comedor 5.webp" data-caption="Comedor - Perspectiva Posterior — Vista amplia del remate del salón hacia los cerramientos acristalados.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Vista Comedor 5.webp" alt="Visual Posterior del Salón 5" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_COM_06</span>
+            </div>
+            <h3 class="render-title">Visual Posterior del Salón</h3>
+            <p class="render-caption">Enfoque que demuestra la calidez ambiental, uniformidad lumínica y optimización de circulaciones.</p>
+          </div>
+        </article>
+
+        <!-- 18. Área de Microondas -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Area de microondas.webp" data-caption="Área de Microondas — Batería lineal de calentamiento simultáneo en acero inoxidable para agilizar los tiempos de almuerzo.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Area de microondas.webp" alt="Área de Microondas" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_EQP_01</span>
+            </div>
+            <h3 class="render-title">Estación de Calentamiento Rápido</h3>
+            <p class="render-caption">Mesón en acero inoxidable con múltiples tomas eléctricas dedicadas para equipos microondas de alto rendimiento.</p>
+          </div>
+        </article>
+
+        <!-- 19. Área Exhibidores y Filtros -->
+        <article class="render-card" data-category="comedor" data-full-src="assets/comedor/Area exhibidores, fregadero, fabricador de hielo y filtro.webp" data-caption="Estación de Fregadero, Dispensadores y Refrigeración — Mobiliario en acero inoxidable, fregadero de aseo, dispensador purificado y fabricador de hielo.">
+          <div class="render-media-container">
+            <img src="assets/comedor/Area exhibidores, fregadero, fabricador de hielo y filtro.webp" alt="Área exhibidores, fregadero y hielo" loading="lazy">
+            <span class="render-zoom-tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              HD Lightbox
+            </span>
+          </div>
+          <div class="render-meta-wrap">
+            <div class="render-meta-top">
+              <span class="render-level-badge">COMEDOR EN PLANTA</span>
+              <span class="render-camera-code">CAM_EQP_02</span>
+            </div>
+            <h3 class="render-title">Estación de Fregadero & Dispensadores</h3>
+            <p class="render-caption">Módulo de servicio equipado con sistema de purificación de agua, fabricador de hielo y fregadero de mantenimiento.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN 4: RECORRIDO VIRTUAL Y SIMULACIÓN CINEMÁTICA
+         ========================================================================== -->
+    <section class="section-container" id="recorrido-virtual">
+      <header class="section-header" style="text-align: center; margin-left: auto; margin-right: auto;">
+        <span class="section-badge" style="justify-content: center;">Fase Técnica 04 // Simulación Tridimensional</span>
+        <h2 class="section-title">Recorrido Virtual y Simulación Cinemática</h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          Recorrido dinámico por áreas operativas, volumetría de contenedores y comedor industrial con ambientación diurna y texturas realistas.
+        </p>
+      </header>
+
+      <div class="video-showcase-wrapper">
+        <div class="video-header-bar">
+          <div class="video-badge-indicator">
+            <span class="video-dot-pulse"></span>
+            RECORRIDO VIRTUAL 3D // SIMULACIÓN CINEMÁTICA
+          </div>
+          <div class="video-specs-tag">
+            720p HD &bull; PBR LIGHTING &bull; RENDER ANIMADO
+          </div>
+        </div>
+        <div class="video-container">
+          <video controls preload="metadata" poster="assets/oficinas/Fachada.webp">
+            <source src="Render 720p.mp4" type="video/mp4">
+            Tu navegador no soporta reproducción nativa de video HTML5.
+          </video>
+        </div>
+      </div>
+
+      <div class="video-features-row">
+        <div class="video-feature-card">
+          <h4>Trayectoria de Cámara Dinámica</h4>
+          <p>Perspectiva fluida que recorre el exterior de los módulos, pasarela elevada y el comedor industrial adaptado dentro de planta.</p>
+        </div>
+        <div class="video-feature-card">
+          <h4>Materialidad e Iluminación PBR</h4>
+          <p>Comportamiento óptico de materiales físicos bajo condiciones de iluminación solar natural y sombras suaves de alta definición.</p>
+        </div>
+        <div class="video-feature-card">
+          <h4>Validación Espacial</h4>
+          <p>Herramienta para la comprensión de escalas, distribución de mobiliario y articulación volumétrica entre recintos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN 5: MATRIZ DE COMPETENCIAS BIM
+         ========================================================================== -->
+    <section class="section-container" id="competencias">
+      <header class="section-header">
+        <span class="section-badge">Fase Técnica 05 // Resumen de Capacidades Técnicas</span>
+        <h2 class="section-title">Matriz de Competencias BIM</h2>
+        <p class="section-desc">
+          Capacidades técnicas aplicadas en modelado paramétrico, planimetría As-Built, metrados para procura y visualización de proyectos modulares.
+        </p>
+      </header>
+
+      <div class="competencies-grid">
+        <!-- 1. Scan-to-CAD / As-Built -->
+        <div class="competency-card">
+          <span class="competency-number">01 // TOPOGRAFÍA & CAD</span>
+          <h3 class="competency-title">Scan-to-CAD / As-Built</h3>
+          <p class="competency-desc">
+            Captura y vectorización geométrica del estado actual, estructuración de plantas acotadas, ejes de emplazamiento y planos técnicos ejecutivos en formato DWG normalizado.
+          </p>
+          <div class="competency-deliverables">
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Levantamiento geométrico y verificación dimensional
+            </div>
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Planimetría en AutoCAD (Nivel 1, Nivel 2 y Comedor)
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Arquitectura Modular -->
+        <div class="competency-card">
+          <span class="competency-number">02 // DISEÑO MODULAR</span>
+          <h3 class="competency-title">Arquitectura Modular</h3>
+          <p class="competency-desc">
+            Diseño espacial y volumétrico en módulos de 40ft y 20ft (configuración 6x40ft + 1x20ft), adaptabilidad ergonómica y terrazas de transición exterior bioclimáticas.
+          </p>
+          <div class="deliverable-item" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--color-border);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Configuración modular 6x40ft + 1x20ft coordinada
+          </div>
+          <div class="deliverable-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Espacio de comedor adaptado dentro de planta
+          </div>
+        </div>
+
+        <!-- 3. Cuantificación MEP -->
+        <div class="competency-card">
+          <span class="competency-number">03 // PROCURA TÉCNICA</span>
+          <h3 class="competency-title">Cuantificación MEP</h3>
+          <p class="competency-desc">
+            Metrados paramétricos de tuberías, ductos y conductores extraídos directamente del modelo para compras técnicas, cotizaciones y estructuración de cronograma en MS Project.
+          </p>
+          <div class="competency-deliverables">
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Cuantificación de cableado (135 m / 540 m totales) y conduit (127 m)
+            </div>
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Metrados de tuberías hidrosanitarias (49 m blancas / 21 m negras)
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Renderizado 3D Hiperrealista -->
+        <div class="competency-card">
+          <span class="competency-number">04 // ILUMINACIÓN & PBR</span>
+          <h3 class="competency-title">Renderizado 3D Hiperrealista</h3>
+          <p class="competency-desc">
+            Iluminación técnica diurna, texturizado de materiales PBR (acero corten, vidrios termoacústicos, maderas) y generación de 19 tomas en alta definición para validación visual.
+          </p>
+          <div class="competency-deliverables">
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Materialidad realista y estudios de asoleamiento
+            </div>
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Renders de alta definición integrados en visor Lightbox
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Visualización Cinemática -->
+        <div class="competency-card">
+          <span class="competency-number">05 // ANIMACIÓN 3D</span>
+          <h3 class="competency-title">Visualización Cinemática</h3>
+          <p class="competency-desc">
+            Renderizado y animación tridimensional continua con cámaras fluidas que ilustran la articulación de los módulos de oficinas y el comedor industrial.
+          </p>
+          <div class="competency-deliverables">
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Simulación de recorrido virtual en video MP4
+            </div>
+            <div class="deliverable-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Plataforma web autocontenida y de navegación nativa
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ==========================================================================
-       MODAL LIGHTBOX ARQUITECTÓNICO (HD)
+       FOOTER & CIERRE TÉCNICO SOBRIO
+       ========================================================================== -->
+  <footer class="showcase-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h2>Modelado BIM, Planimetría Técnica & Visualización 3D</h2>
+          <p>
+            Portafolio técnico enfocado en arquitectura modular, levantamiento As-Built, metrados para procura y renderizado 3D de alta fidelidad.
+          </p>
+        </div>
+
+        <div class="footer-cta-box">
+          <h3>¿Consultas sobre proyectos modulares o modelado BIM?</h3>
+          <p>Servicios especializados en documentación As-Built, cuantificación paramétrica y visualización tridimensional.</p>
+          <div class="footer-actions">
+            <a href="#hero" class="btn-footer-primary">Volver al Inicio</a>
+            <a href="#planimetria" class="btn-footer-secondary">Ver Planos CAD</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          Desarrollo BIM, Modelado 3D & Cuantificación Técnica &bull; Portfolio Showcase
+        </div>
+        <div>
+          Configuración Modular 6x40ft + 1x20ft &bull; Metodología Scan-to-CAD
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón flotante para volver arriba -->
+  <button class="btn-scroll-top" id="btn-scroll-top" title="Volver al inicio" aria-label="Volver arriba">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- ==========================================================================
+       MODAL LIGHTBOX ARQUITECTÓNICO HD
        ========================================================================== -->
   <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="lightbox-header">
       <div class="lightbox-title-wrap">
-        <span class="lightbox-title" id="lightbox-title">Título de la Lámina</span>
-        <span class="lightbox-caption" id="lightbox-caption">Descripción arquitectónica de la toma</span>
+        <span class="lightbox-title" id="lightbox-title">Detalle Técnico</span>
+        <span class="lightbox-caption" id="lightbox-caption">Descripción arquitectónica</span>
       </div>
-      <button class="lightbox-close" id="lightbox-close" title="Cerrar (Esc)" aria-label="Cerrar visor">
+      <button class="lightbox-close" id="lightbox-close" title="Cerrar visor (Esc)" aria-label="Cerrar visor">
         &times;
       </button>
     </div>
 
-    <button class="lightbox-btn lightbox-prev" id="lightbox-prev" title="Imagen anterior (Flecha Izquierda)" aria-label="Imagen anterior">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"></polyline>
-      </svg>
-    </button>
-
     <div class="lightbox-stage">
+      <button class="lightbox-nav-btn lightbox-prev" id="lightbox-prev" title="Imagen anterior (Flecha Izquierda)" aria-label="Imagen anterior">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
       <img src="" alt="" class="lightbox-image" id="lightbox-img">
+
+      <button class="lightbox-nav-btn lightbox-next" id="lightbox-next" title="Imagen siguiente (Flecha Derecha)" aria-label="Imagen siguiente">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
     </div>
 
-    <button class="lightbox-btn lightbox-next" id="lightbox-next" title="Imagen siguiente (Flecha Derecha)" aria-label="Imagen siguiente">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="9 18 15 12 9 6"></polyline>
-      </svg>
-    </button>
-
-    <div class="lightbox-counter" id="lightbox-counter">1 / 19</div>
+    <div class="lightbox-footer">
+      <div class="lightbox-counter" id="lightbox-counter">1 / 19</div>
+    </div>
   </div>
 
   <!-- ==========================================================================
-       JAVASCRIPT AUTÓNOMO (LÓGICA DE NAVEGACIÓN, SNAP-SCROLL Y LIGHTBOX)
+       LÓGICA JAVASCRIPT AUTÓNOMA (LIGHTBOX, FILTROS, SCROLL)
        ========================================================================== -->
   <script>
     (function() {
       'use strict';
 
-      // --- 1. FALLBACK INTELIGENTE DE RUTAS DE IMÁGENES ---
-      // Asegura que si se abre el archivo sin la carpeta assets/, busque en oficinas/ o comedor/
+      // --- 1. FALLBACK AUTOMÁTICO DE RUTAS DE IMÁGENES ---
       document.querySelectorAll('img').forEach(function(img) {
         img.addEventListener('error', function() {
           if (this.src && this.src.includes('assets/')) {
@@ -1592,92 +2502,43 @@
         });
       });
 
-      // --- 2. CONTROL DE DIAPOSITIVAS Y NAVEGACIÓN ---
-      const container = document.getElementById('presentation-container');
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const totalSlides = slides.length;
-      const navDots = Array.from(document.querySelectorAll('.dot-item'));
-      const topbarSheetLabel = document.getElementById('topbar-sheet-label');
-      const btnRestart = document.getElementById('btn-restart-pres');
-      const fullscreenToggle = document.getElementById('fullscreen-toggle');
-
-      let currentSlideIndex = 0;
-
-      function updateSlideUI(index) {
-        currentSlideIndex = index;
-        const formattedCurrent = String(index + 1).padStart(2, '0');
-        const formattedTotal = String(totalSlides).padStart(2, '0');
-        
-        if (topbarSheetLabel) {
-          topbarSheetLabel.textContent = `LÁMINA ${formattedCurrent} / ${formattedTotal}`;
-        }
-
-        navDots.forEach((dot, i) => {
-          if (i === index) {
-            dot.classList.add('active');
-          } else {
-            dot.classList.remove('active');
-          }
-        });
-      }
-
-      function goToSlide(index) {
-        if (index < 0) index = 0;
-        if (index >= totalSlides) index = totalSlides - 1;
-        
-        const targetSlide = slides[index];
-        if (targetSlide) {
-          targetSlide.scrollIntoView({ behavior: 'smooth' });
-          updateSlideUI(index);
-        }
-      }
-
-      // Intersection Observer para actualizar indicador según scroll natural del usuario
-      const observerOptions = {
-        root: container,
-        threshold: 0.35
-      };
-
-      const slideObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.getAttribute('data-index'), 10);
-            if (!isNaN(index)) {
-              updateSlideUI(index);
-            }
-          }
-        });
-      }, observerOptions);
-
-      slides.forEach(slide => slideObserver.observe(slide));
-
-      if (btnRestart) {
-        btnRestart.addEventListener('click', () => goToSlide(0));
-      }
-
-      // Clic en dots laterales
-      navDots.forEach(dot => {
-        dot.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetIndex = parseInt(dot.getAttribute('data-index'), 10);
-          goToSlide(targetIndex);
-        });
-      });
-
-      // Alternar pantalla completa
-      fullscreenToggle.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(err => {
-            console.warn(`Error activando pantalla completa: ${err.message}`);
-          });
+      // --- 2. BOTÓN DE RETORNO AL INICIO ---
+      const btnScrollTop = document.getElementById('btn-scroll-top');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 450) {
+          btnScrollTop.classList.add('visible');
         } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          }
+          btnScrollTop.classList.remove('visible');
         }
+      }, { passive: true });
+
+      btnScrollTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      // --- 3. SISTEMA LIGHTBOX ARQUITECTÓNICO ---
+      // --- 3. FILTRADO DINÁMICO DE RENDERS ---
+      const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+      const renderCards = Array.from(document.querySelectorAll('.render-card'));
+
+      filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          const filterVal = this.getAttribute('data-filter');
+
+          renderCards.forEach(function(card) {
+            const cardCat = card.getAttribute('data-category');
+            if (filterVal === 'all' || cardCat === filterVal) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // --- 4. SISTEMA LIGHTBOX ARQUITECTÓNICO HD ---
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightbox-img');
       const lightboxTitle = document.getElementById('lightbox-title');
@@ -1687,107 +2548,107 @@
       const lightboxPrev = document.getElementById('lightbox-prev');
       const lightboxNext = document.getElementById('lightbox-next');
 
-      const cards = Array.from(document.querySelectorAll('.arch-card'));
-      let currentCardIndex = 0;
+      // Unificar todos los elementos ampliables (renders + technical previews + hero dual cards)
+      const zoomableElements = Array.from(document.querySelectorAll('.render-card, .technical-preview-card, .hero-dual-card'));
+      let currentIndex = 0;
 
-      function openLightbox(index) {
-        if (index < 0) index = cards.length - 1;
-        if (index >= cards.length) index = 0;
+      function getVisibleZoomables() {
+        return zoomableElements.filter(function(el) {
+          return window.getComputedStyle(el).display !== 'none';
+        });
+      }
 
-        currentCardIndex = index;
-        const card = cards[index];
-        const fullSrc = card.getAttribute('data-full-src');
-        const caption = card.getAttribute('data-caption') || '';
-        const titleEl = card.querySelector('.arch-card-title');
-        const title = titleEl ? titleEl.textContent : 'Detalle Arquitectónico';
+      function openLightbox(element) {
+        const visibleList = getVisibleZoomables();
+        currentIndex = visibleList.indexOf(element);
+        if (currentIndex === -1) currentIndex = 0;
+
+        updateLightboxContent(visibleList[currentIndex], visibleList);
+
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function updateLightboxContent(element, list) {
+        const fullSrc = element.getAttribute('data-full-src');
+        const caption = element.getAttribute('data-caption') || '';
+        
+        let title = 'Detalle Técnico HD';
+        const titleEl = element.querySelector('.hero-card-caption, .render-title, .tech-card-footer h4');
+        if (titleEl) {
+          title = titleEl.textContent;
+        }
 
         lightboxImg.src = fullSrc;
         lightboxImg.alt = title;
         lightboxTitle.textContent = title;
         lightboxCaption.textContent = caption;
-        lightboxCounter.textContent = `${index + 1} / ${cards.length}`;
-
-        lightbox.classList.add('active');
-        lightbox.setAttribute('aria-hidden', 'false');
+        lightboxCounter.textContent = `${currentIndex + 1} / ${list.length}`;
       }
 
       function closeLightbox() {
         lightbox.classList.remove('active');
         lightbox.setAttribute('aria-hidden', 'true');
-        setTimeout(() => {
+        document.body.style.overflow = '';
+        setTimeout(function() {
           lightboxImg.src = '';
-        }, 250);
+        }, 200);
       }
 
-      cards.forEach((card, idx) => {
-        card.addEventListener('click', () => openLightbox(idx));
+      function navigateLightbox(direction) {
+        const visibleList = getVisibleZoomables();
+        if (visibleList.length === 0) return;
+
+        currentIndex += direction;
+        if (currentIndex < 0) currentIndex = visibleList.length - 1;
+        if (currentIndex >= visibleList.length) currentIndex = 0;
+
+        updateLightboxContent(visibleList[currentIndex], visibleList);
+      }
+
+      zoomableElements.forEach(function(el) {
+        el.addEventListener('click', function() {
+          openLightbox(this);
+        });
       });
 
       lightboxClose.addEventListener('click', closeLightbox);
-      lightboxPrev.addEventListener('click', (e) => {
+      lightboxPrev.addEventListener('click', function(e) {
         e.stopPropagation();
-        openLightbox(currentCardIndex - 1);
+        navigateLightbox(-1);
       });
-      lightboxNext.addEventListener('click', (e) => {
+      lightboxNext.addEventListener('click', function(e) {
         e.stopPropagation();
-        openLightbox(currentCardIndex + 1);
+        navigateLightbox(1);
       });
 
-      // Cerrar al hacer clic fuera de la imagen
-      lightbox.addEventListener('click', (e) => {
+      // Cierre al cliquear el fondo
+      lightbox.addEventListener('click', function(e) {
         if (e.target === lightbox || e.target.classList.contains('lightbox-stage')) {
           closeLightbox();
         }
       });
 
-      // Fallback para imágenes en lightbox si fuera necesario
+      // Control por teclado
+      window.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+          navigateLightbox(-1);
+        } else if (e.key === 'ArrowRight') {
+          navigateLightbox(1);
+        }
+      });
+
+      // Fallback si la imagen del lightbox falla
       lightboxImg.addEventListener('error', function() {
         if (this.src && this.src.includes('assets/')) {
           this.src = this.src.replace('assets/', '');
         }
       });
-
-      // --- 4. NAVEGACIÓN COMPLETA POR TECLADO ---
-      window.addEventListener('keydown', (e) => {
-        // Si el Lightbox está activo
-        if (lightbox.classList.contains('active')) {
-          if (e.key === 'Escape') {
-            closeLightbox();
-          } else if (e.key === 'ArrowLeft') {
-            openLightbox(currentCardIndex - 1);
-          } else if (e.key === 'ArrowRight') {
-            openLightbox(currentCardIndex + 1);
-          }
-          return;
-        }
-
-        // Navegación regular de diapositivas
-        switch (e.key) {
-          case 'ArrowDown':
-          case 'ArrowRight':
-          case 'PageDown':
-          case ' ':
-            e.preventDefault();
-            goToSlide(currentSlideIndex + 1);
-            break;
-          case 'ArrowUp':
-          case 'ArrowLeft':
-          case 'PageUp':
-            e.preventDefault();
-            goToSlide(currentSlideIndex - 1);
-            break;
-          case 'Home':
-            e.preventDefault();
-            goToSlide(0);
-            break;
-          case 'End':
-            e.preventDefault();
-            goToSlide(totalSlides - 1);
-            break;
-        }
-      });
-
-
 
     })();
   </script>
